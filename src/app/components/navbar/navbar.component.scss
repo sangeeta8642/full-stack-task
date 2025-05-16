@@ -1,0 +1,39 @@
+.navbar {
+    height: 4rem;
+    padding: 0px 10px;
+    // color: black;
+    background-color: #86da8e;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; // Ensures left and right content stays aligned
+  
+    .left {
+      display: flex;
+      align-items: center;
+  
+      .menu-icon {
+        margin-right: 1rem;
+        cursor: pointer;
+        color: #016a0c;
+      }
+  
+      .title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #016a0c;
+      }
+    }
+  
+    .right {
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-end;
+  
+      mat-form-field {
+        width: 200px;
+        margin-right: 1rem;
+        background: white;
+        border-radius: 5px;
+      }
+    }
+  }
