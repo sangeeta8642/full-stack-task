@@ -6,11 +6,12 @@
 
         <div><input type="text" class="search-input" placeholder="Search a board, sprint, story..."></div>
         <mat-list role="list">
-            <mat-list-item role="listitem" routerLink="/">Home</mat-list-item>
-            <mat-list-item role="listitem" routerLink="boards/dashboard">Boards</mat-list-item>
-            <mat-list-item role="listitem" routerLink="sprints/dashboard">Sprints</mat-list-item>
-            <mat-list-item role="listitem" routerLink="stories/dashboard">Stories/Epics</mat-list-item>
-            <mat-list-item role="listitem" routerLink="releases/dashboard">Releases</mat-list-item>
+            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" [routerLinkActiveOptions]="{exact:true}" routerLink="/">Home</mat-list-item>
+            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="boards/dashboard">Boards</mat-list-item>
+            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="sprints/dashboard">Sprints</mat-list-item>
+            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="stories/dashboard">Stories</mat-list-item>
+            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="epic/dashboard">Epics</mat-list-item>
+            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="releases/dashboard">Releases</mat-list-item>
         </mat-list>
 
     </mat-sidenav>
@@ -24,7 +25,7 @@
                 <span>ScrumPro</span>
             </div>
             <!-- <div class="example-button-row"> -->
-            <button mat-flat-button color="primary">Create +</button>
+            <button mat-flat-button color="primary" (click)="redirectToCreate()">Create +</button>
             <!-- <button mat-flat-button disabled>Disabled</button> -->
             <!-- <a mat-flat-button href="https://www.google.com/" target="_blank">Link</a> -->
             <!-- </div> -->

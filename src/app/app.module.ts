@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,16 @@ import { BoardsComponent } from './dashboards/boards/boards.component';
 import { SprintsComponent } from './dashboards/sprints/sprints.component';
 import { ReleasesComponent } from './dashboards/releases/releases.component';
 import { StoriesComponent } from './dashboards/stories/stories.component';
+import { CountCardComponent } from './components/count-card/count-card.component';
+import { HomeComponent } from './pages/home/home.component';
+import { RouterModule } from '@angular/router';
+import { FormViewComponent } from './pages/form-view/form-view.component';
+import { LoginComponent } from './pages/login/login.component';
+import { appReducer } from './app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EpicsComponent } from './dashboards/epics/epics.component';
+import { UsersComponent } from './dashboards/users/users.component';
 
 @NgModule({
   declarations: [
@@ -25,17 +35,35 @@ import { StoriesComponent } from './dashboards/stories/stories.component';
     BoardsComponent,
     SprintsComponent,
     ReleasesComponent,
-    StoriesComponent
+    StoriesComponent,
+    HomeComponent,
+    FormViewComponent,
+    LoginComponent,
+    EpicsComponent,
+    UsersComponent
+
+
+    // CountCardComponent
+
   ],
   imports: [
     ...matModules,
     BrowserModule,
     AppRoutingModule,
+    // RouterModule,
     // NavbarComponent
     SharedModules,
     FormsModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {})
+
+    // CountCardComponent,
+
+
+    StoreModule.forRoot(appReducer),
+
+    EffectsModule.forRoot([]),
+
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [provideAnimations()],
   bootstrap: [AppComponent]

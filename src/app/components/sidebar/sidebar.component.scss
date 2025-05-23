@@ -60,7 +60,17 @@
   height: var(--mat-toolbar-standard-height);
 }
 
-.logo{
+.logo {
   display: flex;
   align-items: center;
+}
+
+.activeLink {
+  background-color: #f0f0f0;
+}
+
+.router-content {
+  // width: 80dvw;
+  display: flex;
+  justify-content: center;
 }

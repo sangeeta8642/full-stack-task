@@ -1,0 +1,82 @@
+<!-- <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="entityForm">
+        <form [formGroup]="entityForm">
+            <ng-template matStepLabel>Choose Entity</ng-template>
+            <label for="entity">Select Entity:</label>
+            <mat-form-field appearance="fill">
+                <mat-select id="entity" formControlName="entity" (selectionChange)="onEntityChange($event)">
+                    <mat-option *ngFor="let key of entityOptions" [value]="key">{{ key }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext [disabled]="!entityForm.valid">Next</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="dynamicForm">
+        <form [formGroup]="dynamicForm">
+            <ng-template matStepLabel>Fill Form</ng-template>
+            <div *ngFor="let field of currentFields">
+                <label [for]="field.name">{{ field.label }}:</label>
+
+                <mat-form-field *ngIf="field.type === 'select'" appearance="fill">
+                    <mat-select [id]="field.name" [formControlName]="field.name">
+                        <mat-option *ngFor="let opt of dropdownOptions[field.optionsKey || '']" [value]="opt.id">
+                            {{ opt.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-checkbox *ngIf="field.type === 'checkbox'" [formControlName]="field.name">
+                    {{ field.label }}
+                </mat-checkbox>
+
+                <mat-form-field *ngIf="field.type !== 'select' && field.type !== 'checkbox'&&field.type !== 'date'"
+                    appearance="fill">
+                    <input matInput [type]="field.type" [id]="field.name" [formControlName]="field.name" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" *ngIf="field.type === 'date'">
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input matInput [matDatepicker]="picker" [formControlName]="field.name">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button type="submit" (click)="onSubmit()">Submit</button>
+            </div>
+        </form>
+    </mat-step>
+</mat-horizontal-stepper> -->
+
+
+<form [formGroup]="dynamicForm">
+    <label for="entity">Select Entity:</label>
+    <select id="entity" (change)="onEntityChange($event)">
+        <option *ngFor="let key of entityOptions" [value]="key">{{ key }}</option>
+    </select>
+
+    <div *ngFor="let field of currentFields">
+        <label [for]="field.name">{{ field.label }}:</label>
+
+        <!-- SELECT (dropdown) -->
+        <select *ngIf="field.type === 'select'" [id]="field.name" [formControlName]="field.name">
+            <option *ngFor="let opt of dropdownOptions[field.optionsKey || '']" [value]="opt.id">
+                {{ opt.name }}
+            </option>
+        </select>
+
+        <!-- CHECKBOX -->
+        <input *ngIf="field.type === 'checkbox'" type="checkbox" [id]="field.name" [formControlName]="field.name" />
+
+        <!-- OTHER INPUTS -->
+        <input *ngIf="field.type !== 'select' && field.type !== 'checkbox'" [type]="field.type" [id]="field.name"
+            [formControlName]="field.name" />
+    </div>
+
+    <button type="button" (click)="onSubmit()">Submit</button>
+</form>

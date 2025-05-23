@@ -6,6 +6,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { CountCardComponent } from './components/count-card/count-card.component';
 import { matModules } from "./utils/constants";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { TableViewComponent } from './components/table-view/table-view.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // const matModules = [
 
@@ -20,7 +25,12 @@ import { matModules } from "./utils/constants";
         // MatButtonModule,
         // MatToolbarModule,
         // MatFormFieldModule
-        ...matModules
+        ...matModules,
+        CommonModule,
+        RouterModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule
+        // CountCardComponent
     ],
     exports: [
         // MatSidenavModule,
@@ -30,11 +40,17 @@ import { matModules } from "./utils/constants";
         // MatToolbarModule,
         // MatFormFieldModule,
         // CountCardComponent
-        ...matModules
+        ...matModules,
+        CommonModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        CountCardComponent,
+        TableViewComponent
     ],
     providers: [],
     declarations: [
-      CountCardComponent
+        CountCardComponent,
+        TableViewComponent
     ]
 })
 

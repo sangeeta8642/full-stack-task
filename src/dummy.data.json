@@ -1,0 +1,312 @@
+{
+    "Board": [
+        {
+            "BoardId": 1,
+            "BoardName": "Development"
+        },
+        {
+            "BoardId": 2,
+            "BoardName": "Marketing"
+        },
+        {
+            "BoardId": 3,
+            "BoardName": "Sales"
+        },
+        {
+            "BoardId": 4,
+            "BoardName": "Design"
+        },
+        {
+            "BoardId": 5,
+            "BoardName": "QA"
+        }
+    ],
+    "Release": [
+        {
+            "ReleaseId": 1,
+            "ReleaseName": "v1.0",
+            "SprintId": 1
+        },
+        {
+            "ReleaseId": 2,
+            "ReleaseName": "v1.1",
+            "SprintId": 2
+        },
+        {
+            "ReleaseId": 3,
+            "ReleaseName": "v2.0",
+            "SprintId": 3
+        },
+        {
+            "ReleaseId": 4,
+            "ReleaseName": "v2.1",
+            "SprintId": 4
+        },
+        {
+            "ReleaseId": 5,
+            "ReleaseName": "v3.0",
+            "SprintId": 5
+        }
+    ],
+    "Sprint": [
+        {
+            "SprintId": 1,
+            "SprintNo": "S1",
+            "SprintName": "Sprint Alpha",
+            "SprintPoint": 20,
+            "StartDate": "2025-05-01",
+            "EndDate": "2025-05-15"
+        },
+        {
+            "SprintId": 2,
+            "SprintNo": "S2",
+            "SprintName": "Sprint Beta",
+            "SprintPoint": 25,
+            "StartDate": "2025-05-16",
+            "EndDate": "2025-05-30"
+        },
+        {
+            "SprintId": 3,
+            "SprintNo": "S3",
+            "SprintName": "Sprint Gamma",
+            "SprintPoint": 30,
+            "StartDate": "2025-06-01",
+            "EndDate": "2025-06-15"
+        },
+        {
+            "SprintId": 4,
+            "SprintNo": "S4",
+            "SprintName": "Sprint Delta",
+            "SprintPoint": 22,
+            "StartDate": "2025-06-16",
+            "EndDate": "2025-06-30"
+        },
+        {
+            "SprintId": 5,
+            "SprintNo": "S5",
+            "SprintName": "Sprint Epsilon",
+            "SprintPoint": 18,
+            "StartDate": "2025-07-01",
+            "EndDate": "2025-07-15"
+        }
+    ],
+    "Epic": [
+        {
+            "EpicId": 1,
+            "EpicName": "Authentication",
+            "Description": "User login and registration"
+        },
+        {
+            "EpicId": 2,
+            "EpicName": "Payments",
+            "Description": "Payment gateway integration"
+        },
+        {
+            "EpicId": 3,
+            "EpicName": "Notifications",
+            "Description": "Email and SMS alerts"
+        },
+        {
+            "EpicId": 4,
+            "EpicName": "Dashboard",
+            "Description": "User dashboard UI"
+        },
+        {
+            "EpicId": 5,
+            "EpicName": "Reports",
+            "Description": "Reporting module"
+        }
+    ],
+    "Story": [
+        {
+            "StoryId": 1,
+            "StoryName": "Login Page",
+            "Description": "Design login UI",
+            "StatusId": 1,
+            "BoardId": 1,
+            "UserId": 1,
+            "SprintId": 1,
+            "EpicId": 1
+        },
+        {
+            "StoryId": 2,
+            "StoryName": "Stripe Integration",
+            "Description": "Implement Stripe payments",
+            "StatusId": 2,
+            "BoardId": 1,
+            "UserId": 2,
+            "SprintId": 2,
+            "EpicId": 2
+        },
+        {
+            "StoryId": 3,
+            "StoryName": "Email Alerts",
+            "Description": "Trigger email notifications",
+            "StatusId": 3,
+            "BoardId": 3,
+            "UserId": 3,
+            "SprintId": 3,
+            "EpicId": 3
+        },
+        {
+            "StoryId": 4,
+            "StoryName": "UI Dashboard",
+            "Description": "Build dashboard layout",
+            "StatusId": 1,
+            "BoardId": 4,
+            "UserId": 4,
+            "SprintId": 4,
+            "EpicId": 4
+        },
+        {
+            "StoryId": 5,
+            "StoryName": "Sales Reports",
+            "Description": "Generate reports",
+            "StatusId": 2,
+            "BoardId": 5,
+            "UserId": 5,
+            "SprintId": 5,
+            "EpicId": 5
+        }
+    ],
+    "StoryStatus": [
+        {
+            "Id": 1,
+            "Name": "To Do"
+        },
+        {
+            "Id": 2,
+            "Name": "In Progress"
+        },
+        {
+            "Id": 3,
+            "Name": "Done"
+        },
+        {
+            "Id": 4,
+            "Name": "Blocked"
+        },
+        {
+            "Id": 5,
+            "Name": "Review"
+        }
+    ],
+    "SubTask": [
+        {
+            "TaskId": 1,
+            "TaskName": "Design UI",
+            "Description": "Design login layout",
+            "StoryId": 1
+        },
+        {
+            "TaskId": 2,
+            "TaskName": "API Call",
+            "Description": "Set up payment API",
+            "StoryId": 2
+        },
+        {
+            "TaskId": 3,
+            "TaskName": "Mail Template",
+            "Description": "Design email template",
+            "StoryId": 3
+        },
+        {
+            "TaskId": 4,
+            "TaskName": "Frontend Code",
+            "Description": "Code dashboard",
+            "StoryId": 4
+        },
+        {
+            "TaskId": 5,
+            "TaskName": "Export Report",
+            "Description": "PDF report export",
+            "StoryId": 5
+        }
+    ],
+    "Comments": [
+        {
+            "CommentId": 1,
+            "Comment": "Looks good!",
+            "StoryId": 1
+        },
+        {
+            "CommentId": 2,
+            "Comment": "Please fix bug",
+            "StoryId": 2
+        },
+        {
+            "CommentId": 3,
+            "Comment": "Need more tests",
+            "StoryId": 3
+        },
+        {
+            "CommentId": 4,
+            "Comment": "Add charts",
+            "StoryId": 4
+        },
+        {
+            "CommentId": 5,
+            "Comment": "Check formatting",
+            "StoryId": 5
+        }
+    ],
+    "User": [
+        {
+            "UserId": 1,
+            "UserName": "alice",
+            "Email": "alice@example.com",
+            "Password": "pass123",
+            "RoleId": 1
+        },
+        {
+            "UserId": 2,
+            "UserName": "bob",
+            "Email": "bob@example.com",
+            "Password": "pass123",
+            "RoleId": 2
+        },
+        {
+            "UserId": 3,
+            "UserName": "carol",
+            "Email": "carol@example.com",
+            "Password": "pass123",
+            "RoleId": 2
+        },
+        {
+            "UserId": 4,
+            "UserName": "dave",
+            "Email": "dave@example.com",
+            "Password": "pass123",
+            "RoleId": 3
+        },
+        {
+            "UserId": 5,
+            "UserName": "eve",
+            "Email": "eve@example.com",
+            "Password": "pass123",
+            "RoleId": 3
+        }
+    ],
+    "Role": [
+        {
+            "Id": 1,
+            "Title": "Admin"
+        },
+        {
+            "Id": 2,
+            "Title": "Developer"
+        },
+        {
+            "Id": 3,
+            "Title": "Tester"
+        },
+        {
+            "Id": 4,
+            "Title": "Manager"
+        },
+        {
+            "Id": 5,
+            "Title": "Designer"
+        }
+    ]
+}

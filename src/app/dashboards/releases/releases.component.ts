@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { getAllReleases } from 'src/app/ngrx/releases/releases.selectors';
+import { ColumnConfig, ReleaseInterface } from 'src/app/utils/types';
 
 @Component({
   selector: 'app-releases',
@@ -7,4 +10,32 @@ import { Component } from '@angular/core';
 })
 export class ReleasesComponent {
 
+
+
+  releaseColumns: ColumnConfig[] = [
+    {
+      columnDef: 'ReleaseId',
+      header: 'ID',
+      cell: (element: any) => `${element.ReleaseId}`
+    },
+    {
+      columnDef: 'ReleaseName',
+      header: 'Release Name',
+      cell: (element: any) => `${element.ReleaseName}`
+    },
+    {
+      columnDef: 'SprintId',
+      header: 'Sprint ID',
+      cell: (element: any) => `${element.SprintId}`
+    }
+  ];
+
+
+
+  releases:ReleaseInterface[] = [];
+  constructor(private store: Store) {
+    this.store.select(getAllReleases).subscribe(res => (
+      this.releases = res.releases
+    ))
+  }
 }

@@ -1,1 +1,9 @@
-<p>count-card works!</p>
+<section class="count-cards">
+    <div class="main-card" [ngStyle]="{'background-color':colours[i]}" *ngFor="let card of counts;let i = index">
+        <p class="card-title">
+            {{card?.title}}
+        </p>
+        <h3 class="card-count">{{card?.count}}</h3>
+        <p class="card-link" [routerLink]="card?.link">View</p>
+    </div>
+</section>

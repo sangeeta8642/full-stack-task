@@ -1,0 +1,43 @@
+.main-card {
+    color: black;
+    width: 220px;
+    height: 139px;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.count-cards {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 50px;
+    justify-content: space-between;
+    row-gap: 30px;
+}
+
+.card-title {
+    text-transform: capitalize;
+    font-size: 16px;
+    margin: 00px !important;
+}
+
+.card-count {
+    font-size: 90px;
+    text-align: center;
+    margin: 0px !important;
+}
+
+.card-link {
+    text-align: end;
+    margin: 0px !important;
+    font-size: 15px;
+    cursor: pointer;
+    /* color: grey; */
+}
+
+.card-link:hover{
+    color: grey;
+}
