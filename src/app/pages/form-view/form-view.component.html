@@ -1,82 +1,192 @@
-<!-- <mat-horizontal-stepper linear #stepper>
-    <mat-step [stepControl]="entityForm">
-        <form [formGroup]="entityForm">
-            <ng-template matStepLabel>Choose Entity</ng-template>
-            <label for="entity">Select Entity:</label>
-            <mat-form-field appearance="fill">
-                <mat-select id="entity" formControlName="entity" (selectionChange)="onEntityChange($event)">
-                    <mat-option *ngFor="let key of entityOptions" [value]="key">{{ key }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperNext [disabled]="!entityForm.valid">Next</button>
-            </div>
-        </form>
-    </mat-step>
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <!-- Step 1 -->
+  <mat-step [stepControl]="typeForm">
+    <form [formGroup]="typeForm">
+      <ng-template matStepLabel>Select Entity Type</ng-template>
 
-    <mat-step [stepControl]="dynamicForm">
-        <form [formGroup]="dynamicForm">
-            <ng-template matStepLabel>Fill Form</ng-template>
-            <div *ngFor="let field of currentFields">
-                <label [for]="field.name">{{ field.label }}:</label>
+      <mat-form-field appearance="fill">
+        <mat-label>Entity Type</mat-label>
+        <mat-select
+          formControlName="entityType"
+          (selectionChange)="onEntityTypeChange()"
+        >
+          <mat-option *ngFor="let type of entityTypes" [value]="type">{{
+            type
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-                <mat-form-field *ngIf="field.type === 'select'" appearance="fill">
-                    <mat-select [id]="field.name" [formControlName]="field.name">
-                        <mat-option *ngFor="let opt of dropdownOptions[field.optionsKey || '']" [value]="opt.id">
-                            {{ opt.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+      <div>
+        <button mat-button matStepperNext [disabled]="!typeForm.valid">
+          Next
+        </button>
+      </div>
+    </form>
+  </mat-step>
 
-                <mat-checkbox *ngIf="field.type === 'checkbox'" [formControlName]="field.name">
-                    {{ field.label }}
-                </mat-checkbox>
+  <!-- Step 2 -->
+  <mat-step [stepControl]="entityForm">
+    <form [formGroup]="entityForm">
+      <ng-template matStepLabel>Enter {{ selectedEntity }} Details</ng-template>
 
-                <mat-form-field *ngIf="field.type !== 'select' && field.type !== 'checkbox'&&field.type !== 'date'"
-                    appearance="fill">
-                    <input matInput [type]="field.type" [id]="field.name" [formControlName]="field.name" />
-                </mat-form-field>
-                <mat-form-field appearance="fill" *ngIf="field.type === 'date'">
-                    <mat-label>{{ field.label }}</mat-label>
-                    <input matInput [matDatepicker]="picker" [formControlName]="field.name">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
+      <!-- Dynamically render fields -->
+      <ng-container [ngSwitch]="selectedEntity">
+        <!-- Board -->
+        <div *ngSwitchCase="'Board'">
+          <mat-form-field appearance="fill">
+            <mat-label>Board Name</mat-label>
+            <input matInput formControlName="BoardName" required />
+          </mat-form-field>
+        </div>
 
+        <!-- Sprint -->
+        <div *ngSwitchCase="'Sprint'">
+          <mat-form-field appearance="fill">
+            <mat-label>Sprint Name</mat-label>
+            <input matInput formControlName="SprintName" required />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Sprint Number</mat-label>
+            <input matInput formControlName="SprintNo" required />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Sprint Point</mat-label>
+            <input matInput formControlName="SprintPoint" type="number" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Start Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="startDatePicker"
+              formControlName="StartDate"
+              readonly
+              (click)="startDatePicker.open()"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </mat-form-field>
 
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button type="submit" (click)="onSubmit()">Submit</button>
-            </div>
-        </form>
-    </mat-step>
-</mat-horizontal-stepper> -->
+          <mat-form-field appearance="fill">
+            <mat-label>End Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="endDatePicker"
+              formControlName="EndDate"
+              (click)="endDatePicker.open()"
+              readonly
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
 
+        <!-- Story -->
+        <div *ngSwitchCase="'Story'">
+          <mat-form-field appearance="fill">
+            <mat-label>Story Name</mat-label>
+            <input matInput formControlName="StoryName" required />
+          </mat-form-field>
 
-<form [formGroup]="dynamicForm">
-    <label for="entity">Select Entity:</label>
-    <select id="entity" (change)="onEntityChange($event)">
-        <option *ngFor="let key of entityOptions" [value]="key">{{ key }}</option>
-    </select>
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="Description"></textarea>
+          </mat-form-field>
 
-    <div *ngFor="let field of currentFields">
-        <label [for]="field.name">{{ field.label }}:</label>
+          <mat-checkbox color="primary" formControlName="Flag"
+            >Flag</mat-checkbox
+          >
 
-        <!-- SELECT (dropdown) -->
-        <select *ngIf="field.type === 'select'" [id]="field.name" [formControlName]="field.name">
-            <option *ngFor="let opt of dropdownOptions[field.optionsKey || '']" [value]="opt.id">
-                {{ opt.name }}
-            </option>
-        </select>
+          <mat-form-field appearance="fill">
+            <mat-label>Status ID</mat-label>
+            <input matInput formControlName="StatusId" type="number" />
+          </mat-form-field>
 
-        <!-- CHECKBOX -->
-        <input *ngIf="field.type === 'checkbox'" type="checkbox" [id]="field.name" [formControlName]="field.name" />
+          <mat-form-field appearance="fill">
+            <mat-label>Board ID</mat-label>
+            <input matInput formControlName="BoardId" type="number" />
+          </mat-form-field>
 
-        <!-- OTHER INPUTS -->
-        <input *ngIf="field.type !== 'select' && field.type !== 'checkbox'" [type]="field.type" [id]="field.name"
-            [formControlName]="field.name" />
-    </div>
+          <mat-form-field appearance="fill">
+            <mat-label>User ID</mat-label>
+            <input matInput formControlName="UserId" type="number" />
+          </mat-form-field>
 
-    <button type="button" (click)="onSubmit()">Submit</button>
-</form>
+          <mat-form-field appearance="fill">
+            <mat-label>Sprint ID</mat-label>
+            <!-- <input matInput formControlName="SprintId" type="number" /> -->
+            <mat-select formControlName="SprintId">
+              <mat-option
+                *ngFor="let sprint of sprints"
+                [value]="sprint.SprintId"
+                >{{ sprint.SprintName }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Epic ID</mat-label>
+            <input matInput formControlName="EpicId" type="number" />
+          </mat-form-field>
+        </div>
+
+        <!-- Epic -->
+        <div *ngSwitchCase="'Epic'">
+          <mat-form-field appearance="fill">
+            <mat-label>Epic Name</mat-label>
+            <input matInput formControlName="EpicName" required />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="Description"></textarea>
+          </mat-form-field>
+        </div>
+
+        <!-- User -->
+        <div *ngSwitchCase="'User'">
+          <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="UserName" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="Email" type="email" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="Password" type="password" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Role ID</mat-label>
+            <input matInput formControlName="RoleId" type="number" />
+          </mat-form-field>
+        </div>
+
+        <!-- Release -->
+        <div *ngSwitchCase="'Release'">
+          <mat-form-field appearance="fill">
+            <mat-label>Release Name</mat-label>
+            <input matInput formControlName="ReleaseName" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Sprint ID</mat-label>
+            <input matInput formControlName="SprintId" type="number" />
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <div class="d-flex flex-row justify-between">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="onSubmit()" [disabled]="!entityForm.valid">
+          Submit
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>
