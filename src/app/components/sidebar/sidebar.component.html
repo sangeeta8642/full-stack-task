@@ -1,46 +1,92 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav mode="side" class="sidebar" [opened]="true">
-        <!-- <button mat-icon-button (click)="sidenav.toggle()">
+  <mat-sidenav #sidenav mode="side" class="sidebar" [opened]="true">
+    <!-- <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon>close</mat-icon>
         </button> -->
 
-        <div><input type="text" class="search-input" placeholder="Search a board, sprint, story..."></div>
-        <mat-list role="list">
-            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" [routerLinkActiveOptions]="{exact:true}" routerLink="/">Home</mat-list-item>
-            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="boards/dashboard">Boards</mat-list-item>
-            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="sprints/dashboard">Sprints</mat-list-item>
-            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="stories/dashboard">Stories</mat-list-item>
-            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="epic/dashboard">Epics</mat-list-item>
-            <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" routerLink="releases/dashboard">Releases</mat-list-item>
-        </mat-list>
+    <div>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search a board, sprint, story..."
+      />
+    </div>
+    <mat-list role="list">
+      <mat-list-item
+        role="listitem"
+        [routerLinkActive]="'activeLink'"
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/"
+        >Home</mat-list-item
+      >
+      <mat-list-item
+        role="listitem"
+        [routerLinkActive]="'activeLink'"
+        routerLink="boards/dashboard"
+        >Boards</mat-list-item
+      >
+      <mat-list-item
+        role="listitem"
+        [routerLinkActive]="'activeLink'"
+        routerLink="sprints/dashboard"
+        >Sprints</mat-list-item
+      >
+      <mat-list-item
+        role="listitem"
+        [routerLinkActive]="'activeLink'"
+        routerLink="stories/dashboard"
+        >Stories</mat-list-item
+      >
+      <mat-list-item
+        role="listitem"
+        [routerLinkActive]="'activeLink'"
+        routerLink="epic/dashboard"
+        >Epics</mat-list-item
+      >
+      <mat-list-item
+        role="listitem"
+        [routerLinkActive]="'activeLink'"
+        routerLink="releases/dashboard"
+        >Releases</mat-list-item
+      >
+      <mat-list-item
+        role="listitem"
+        [routerLinkActive]="'activeLink'"
+        routerLink="user/dashboard"
+        >Users</mat-list-item
+      >
+    </mat-list>
+  </mat-sidenav>
 
-    </mat-sidenav>
+  <mat-sidenav-content
+    class="content"
+    [ngClass]="sidenav.opened ? 'w-80p' : 'w-full'"
+  >
+    <mat-toolbar>
+      <div class="logo">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>ScrumPro</span>
+      </div>
+      <!-- <div class="example-button-row"> -->
+      <button mat-flat-button color="primary" (click)="redirectToCreate()">
+        Create +
+      </button>
+      <!-- <button mat-flat-button disabled>Disabled</button> -->
+      <!-- <a mat-flat-button href="https://www.google.com/" target="_blank">Link</a> -->
+      <!-- </div> -->
 
-    <mat-sidenav-content class="content" [ngClass]="sidenav.opened ? 'w-80p' : 'w-full'">
-        <mat-toolbar>
-            <div class="logo">
-                <button mat-icon-button (click)="sidenav.toggle()">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <span>ScrumPro</span>
-            </div>
-            <!-- <div class="example-button-row"> -->
-            <button mat-flat-button color="primary" (click)="redirectToCreate()">Create +</button>
-            <!-- <button mat-flat-button disabled>Disabled</button> -->
-            <!-- <a mat-flat-button href="https://www.google.com/" target="_blank">Link</a> -->
-            <!-- </div> -->
-
-
-            <!-- <div class="search-container">
+      <!-- <div class="search-container">
                 <mat-form-field appearance="outline">
                   <mat-label>Search</mat-label>
                   <input matInput type="text">
                 </mat-form-field>
               </div> -->
-        </mat-toolbar>
-        <!-- <p>Main Content Here</p> -->
-        <main class="router-content">
-            <router-outlet></router-outlet>
-        </main>
-    </mat-sidenav-content>
+    </mat-toolbar>
+    <!-- <p>Main Content Here</p> -->
+    <main class="router-content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
 </mat-sidenav-container>

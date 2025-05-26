@@ -12,6 +12,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export const matModules = [
   MatSidenavModule,
@@ -20,6 +21,7 @@ export const matModules = [
   MatButtonModule,
   MatToolbarModule,
   MatListModule,
+  MatDialogModule,
   MatTableModule,
   MatSelectModule,
   MatStepperModule,

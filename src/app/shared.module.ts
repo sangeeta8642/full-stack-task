@@ -11,6 +11,7 @@ import { RouterModule } from "@angular/router";
 import { TableViewComponent } from './components/table-view/table-view.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RoleDialogComponent } from './components/role-dialog/role-dialog.component';
 
 // const matModules = [
 
@@ -29,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FormsModule
         // CountCardComponent
     ],
     exports: [
@@ -50,7 +52,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     providers: [],
     declarations: [
         CountCardComponent,
-        TableViewComponent
+        TableViewComponent,
+        RoleDialogComponent
     ]
 })
 

@@ -208,12 +208,26 @@ import * as releaseAction from 'src/app/ngrx/releases/releases.action';
 import * as epicAction from 'src/app/ngrx/epics/epics.actions';
 import * as sprintsAction from 'src/app/ngrx/sprints/sprints.actions';
 import * as storyActions from 'src/app/ngrx/stories/stories.actions';
+import * as usersActions from 'src/app/ngrx/user/users.actions';
+
 import { getAllBoards } from 'src/app/ngrx/boards/boards.selector';
 import { getAllReleases } from 'src/app/ngrx/releases/releases.selectors';
 import { getAllEpics } from 'src/app/ngrx/epics/epics.selectors';
 import { getAllSprints } from 'src/app/ngrx/sprints/sprints.selectors';
 import { getAllStories } from 'src/app/ngrx/stories/stories.selector';
-import { BoardsInterface, SprintsInterface } from 'src/app/utils/types';
+import {
+  BoardsInterface,
+  EpicsInterface,
+  ReleaseInterface,
+  RoleInterface,
+  SprintsInterface,
+  StoriesInterface,
+  UserInterface,
+} from 'src/app/utils/types';
+import { getAllUsers } from 'src/app/ngrx/user/users.selectors';
+import { getAllRoles } from 'src/app/ngrx/roles/role.selectors';
+import { MatDialog } from '@angular/material/dialog';
+import { RoleDialogComponent } from 'src/app/components/role-dialog/role-dialog.component';
 
 @Component({
   selector: 'app-form-view',
@@ -226,19 +240,32 @@ export class FormViewComponent {
   typeForm: FormGroup;
   entityForm: FormGroup;
 
-  boardsLength: number = 0;
-  releaseLength: number = 0;
-  epicsLength: number = 0;
-  storiesLength: number = 0;
-  sprintsLength: number = 0;
+  statusData = [
+    { id: 1, value: 'To-do' },
+    { id: 2, value: 'In-process' },
+    { id: 3, value: 'Completed' },
+  ];
+
+  // boardsLength: number = 0;
+  // releaseLength: number = 0;
+  // epicsLength: number = 0;
+  // storiesLength: number = 0;
+  // sprintsLength: number = 0;
+  // usersLength: number = 0;
 
   boards: BoardsInterface[] = [];
-  release: number = 0;
-  epics: number = 0;
-  stories: number = 0;
+  release: ReleaseInterface[] = [];
+  epics: EpicsInterface[] = [];
+  stories: StoriesInterface[] = [];
   sprints: SprintsInterface[] = [];
+  users: UserInterface[] = [];
+  roles: RoleInterface[] = [];
 
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private dialog: MatDialog
+  ) {
     this.typeForm = this.fb.group({
       entityType: ['', Validators.required],
     });
@@ -247,24 +274,40 @@ export class FormViewComponent {
 
     this.store.select(getAllBoards).subscribe((data) => {
       console.log('boards', data);
-      this.boardsLength = data.boards.length;
+      this.boards = data.boards;
     });
+
     this.store.select(getAllReleases).subscribe((data) => {
       console.log('releases', data);
-      this.releaseLength = data.releases.length;
+      this.release = data.releases;
     });
+
     this.store.select(getAllEpics).subscribe((data) => {
       console.log('epics', data);
-      this.epicsLength = data.epics.length;
+      this.epics = data.epics;
     });
+
     this.store.select(getAllSprints).subscribe((data) => {
       console.log('sprints', data);
-      this.sprintsLength = data.sprints.length;
+      // this.sprintsLength = data.sprints.length;
       this.sprints = data.sprints;
     });
+
     this.store.select(getAllStories).subscribe((data) => {
       console.log('stories', data);
-      this.storiesLength = data.stories.length;
+      this.stories = data.stories;
+    });
+
+    this.store.select(getAllUsers).subscribe((data) => {
+      console.log('users', data);
+      // this.storiesLength = data.users.length;
+      this.users = data.users;
+    });
+
+    this.store.select(getAllRoles).subscribe((data) => {
+      console.log('users', data);
+      // this.storiesLength = data.users.length;
+      this.roles = data.roles;
     });
   }
 
@@ -342,7 +385,7 @@ export class FormViewComponent {
       case 'Board': {
         let data = {
           ...this.entityForm.value,
-          BoardId: this.boardsLength + 1,
+          BoardId: this.boards.length + 1,
         };
         this.store.dispatch(boardActions.addBoardSuccess({ board: data }));
         break;
@@ -350,7 +393,7 @@ export class FormViewComponent {
       case 'Release': {
         let data = {
           ...this.entityForm.value,
-          ReleaseId: this.releaseLength + 1,
+          ReleaseId: this.release.length + 1,
         };
         this.store.dispatch(releaseAction.addReleaseSuccess({ release: data }));
         break;
@@ -358,7 +401,7 @@ export class FormViewComponent {
       case 'Epic': {
         let data = {
           ...this.entityForm.value,
-          EpicId: this.epicsLength + 1,
+          EpicId: this.epics.length + 1,
         };
         this.store.dispatch(epicAction.addEpicSuccess({ epic: data }));
         break;
@@ -366,7 +409,7 @@ export class FormViewComponent {
       case 'Sprint': {
         let data = {
           ...this.entityForm.value,
-          SprintId: this.sprintsLength + 1,
+          SprintId: this.sprints.length + 1,
         };
         this.store.dispatch(sprintsAction.addSprintSuccess({ sprint: data }));
         break;
@@ -374,11 +417,25 @@ export class FormViewComponent {
       case 'Story': {
         let data = {
           ...this.entityForm.value,
-          StoryId: this.storiesLength + 1,
+          StoryId: this.stories.length + 1,
         };
         this.store.dispatch(storyActions.addStorySuccess({ story: data }));
         break;
       }
+      case 'User': {
+        let data = {
+          ...this.entityForm.value,
+          UserId: this.users.length + 1,
+        };
+        this.store.dispatch(usersActions.addUserSuccess({ user: data }));
+        break;
+      }
     }
+  }
+
+  onCreateNewRoleClick() {
+    this.dialog.open(RoleDialogComponent, {
+      width: '500px',
+    });
   }
 }

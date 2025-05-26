@@ -103,22 +103,41 @@
           >
 
           <mat-form-field appearance="fill">
-            <mat-label>Status ID</mat-label>
-            <input matInput formControlName="StatusId" type="number" />
+            <mat-label>Status</mat-label>
+            <!-- <input matInput formControlName="StatusId" type="number" /> -->
+            <mat-select formControlName="StatusId">
+              <mat-option
+                *ngFor="let status of statusData"
+                [value]="status.id"
+                >{{ status.value }}</mat-option
+              >
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Board ID</mat-label>
-            <input matInput formControlName="BoardId" type="number" />
+            <mat-label>Board</mat-label>
+            <!-- <input matInput formControlName="BoardId" type="number" /> -->
+            <mat-select formControlName="BoardId">
+              <mat-option
+                *ngFor="let board of boards"
+                [value]="board.BoardId"
+                >{{ board.BoardName }}</mat-option
+              >
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>User ID</mat-label>
-            <input matInput formControlName="UserId" type="number" />
+            <mat-label>User</mat-label>
+            <!-- <input matInput formControlName="UserId" type="number" /> -->
+            <mat-select formControlName="UserId">
+              <mat-option *ngFor="let user of users" [value]="user.UserId">{{
+                user.UserName
+              }}</mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Sprint ID</mat-label>
+            <mat-label>Sprint</mat-label>
             <!-- <input matInput formControlName="SprintId" type="number" /> -->
             <mat-select formControlName="SprintId">
               <mat-option
@@ -130,8 +149,13 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Epic ID</mat-label>
-            <input matInput formControlName="EpicId" type="number" />
+            <mat-label>Epic</mat-label>
+            <!-- <input matInput formControlName="EpicId" type="number" /> -->
+            <mat-select formControlName="EpicId">
+              <mat-option *ngFor="let epic of epics" [value]="epic.EpicId">{{
+                epic.EpicName
+              }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
 
@@ -162,8 +186,16 @@
             <input matInput formControlName="Password" type="password" />
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>Role ID</mat-label>
-            <input matInput formControlName="RoleId" type="number" />
+            <mat-label>Role</mat-label>
+            <!-- <input matInput formControlName="RoleId" type="number" /> -->
+            <mat-select formControlName="RoleId">
+              <mat-option *ngFor="let r of roles" [value]="r.id">{{
+                r.Title
+              }}</mat-option>
+              <mat-option (onSelectionChange)="onCreateNewRoleClick()">
+                + Create New Role
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
 
@@ -176,7 +208,12 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Sprint ID</mat-label>
-            <input matInput formControlName="SprintId" type="number" />
+            <!-- <input matInput formControlName="SprintId" type="number" /> -->
+            <mat-select formControlName="SprintId">
+              <mat-option *ngFor="let s of sprints" [value]="s.SprintId">{{
+                s.SprintName
+              }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </ng-container>

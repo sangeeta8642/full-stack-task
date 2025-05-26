@@ -1,7 +1,7 @@
 export interface countInterface {
-  title: string,
-  count: number,
-  link?: string
+  title: string;
+  count: number;
+  link?: string;
 }
 
 export interface ColumnConfig {
@@ -11,38 +11,56 @@ export interface ColumnConfig {
 }
 
 export interface BoardsInterface {
-  BoardId: number, BoardName: string
+  BoardId: number;
+  BoardName: string;
 }
 
 export interface EpicsInterface {
-  EpicId: number, EpicName: string, Description: string
+  EpicId: number;
+  EpicName: string;
+  Description: string;
 }
 
 export interface StoriesInterface {
-  StoryId: number, StoryName: string,
-  Description: string, StatusId: number,
-  BoardId: number, UserId: number, SprintId: number, EpicId: number
+  StoryId: number;
+  StoryName: string;
+  Description: string;
+  StatusId: number;
+  BoardId: number;
+  UserId: number;
+  SprintId: number;
+  EpicId: number;
 }
 
 export interface ReleaseInterface {
-  ReleaseId: number,
-  ReleaseName: string,
-  SprintId: number
+  ReleaseId: number;
+  ReleaseName: string;
+  SprintId: number;
 }
 
 export interface SprintsInterface {
-  SprintId: number,
-  SprintNo: string,
-  SprintName: string,
-  SprintPoint: number,
-  StartDate: string | Date,
-  EndDate: string | Date
+  SprintId: number;
+  SprintNo: string;
+  SprintName: string;
+  SprintPoint: number;
+  StartDate: string | Date;
+  EndDate: string | Date;
 }
 
 export interface UserInterface {
-  UserId?: number,
-  UserName: string,
-  Email: string,
-  Password: string,
-  RoleId: number
+  UserId?: number;
+  UserName: string;
+  Email: string;
+  Password: string;
+  RoleId: number;
+}
+
+export interface StatusInterface {
+  id?: number;
+  Name: string;
+}
+
+export interface RoleInterface {
+  id?: number;
+  Title: string;
 }
