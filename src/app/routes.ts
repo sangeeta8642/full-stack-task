@@ -40,6 +40,10 @@ export const routes: Routes = [
     component: FormViewComponent,
   },
   {
+    path: 'update/:dashboard/:id',
+    component: FormViewComponent,
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },

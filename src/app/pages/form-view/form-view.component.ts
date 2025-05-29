@@ -203,18 +203,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import * as boardActions from 'src/app/ngrx/boards/boards.actions';
-import * as releaseAction from 'src/app/ngrx/releases/releases.action';
-import * as epicAction from 'src/app/ngrx/epics/epics.actions';
-import * as sprintsAction from 'src/app/ngrx/sprints/sprints.actions';
-import * as storyActions from 'src/app/ngrx/stories/stories.actions';
-import * as usersActions from 'src/app/ngrx/user/users.actions';
-
 import { getAllBoards } from 'src/app/ngrx/boards/boards.selector';
 import { getAllReleases } from 'src/app/ngrx/releases/releases.selectors';
 import { getAllEpics } from 'src/app/ngrx/epics/epics.selectors';
 import { getAllSprints } from 'src/app/ngrx/sprints/sprints.selectors';
 import { getAllStories } from 'src/app/ngrx/stories/stories.selector';
+
 import {
   BoardsInterface,
   EpicsInterface,
@@ -224,10 +218,13 @@ import {
   StoriesInterface,
   UserInterface,
 } from 'src/app/utils/types';
+
 import { getAllUsers } from 'src/app/ngrx/user/users.selectors';
 import { getAllRoles } from 'src/app/ngrx/roles/role.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { RoleDialogComponent } from 'src/app/components/role-dialog/role-dialog.component';
+import { ActivatedRoute } from '@angular/router';
+import { Context, entityDispatchers, entityFormControls } from 'src/app/utils/helper';
 
 @Component({
   selector: 'app-form-view',
@@ -235,23 +232,19 @@ import { RoleDialogComponent } from 'src/app/components/role-dialog/role-dialog.
   styleUrls: ['./form-view.component.scss'],
 })
 export class FormViewComponent {
-  entityTypes = ['Board', 'Sprint', 'Story', 'Epic', 'User', 'Release'];
+  entityTypes: Context[] = ['Board', 'Sprint', 'Story', 'Epic', 'User', 'Release']
   selectedEntity = '';
   typeForm: FormGroup;
   entityForm: FormGroup;
+
+  pageType: string = 'update'
+
 
   statusData = [
     { id: 1, value: 'To-do' },
     { id: 2, value: 'In-process' },
     { id: 3, value: 'Completed' },
   ];
-
-  // boardsLength: number = 0;
-  // releaseLength: number = 0;
-  // epicsLength: number = 0;
-  // storiesLength: number = 0;
-  // sprintsLength: number = 0;
-  // usersLength: number = 0;
 
   boards: BoardsInterface[] = [];
   release: ReleaseInterface[] = [];
@@ -264,7 +257,8 @@ export class FormViewComponent {
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private activeRoute: ActivatedRoute
   ) {
     this.typeForm = this.fb.group({
       entityType: ['', Validators.required],
@@ -272,43 +266,36 @@ export class FormViewComponent {
 
     this.entityForm = this.fb.group({});
 
-    this.store.select(getAllBoards).subscribe((data) => {
-      console.log('boards', data);
-      this.boards = data.boards;
-    });
+    this.subscribeToEntity(getAllBoards, 'boards');
+    this.subscribeToEntity(getAllReleases, 'release');
+    this.subscribeToEntity(getAllEpics, 'epics');
+    this.subscribeToEntity(getAllSprints, 'sprints');
+    this.subscribeToEntity(getAllStories, 'stories');
+    this.subscribeToEntity(getAllUsers, 'users');
+    this.subscribeToEntity(getAllRoles, 'roles');
+  }
 
-    this.store.select(getAllReleases).subscribe((data) => {
-      console.log('releases', data);
-      this.release = data.releases;
-    });
+  ngOnInit() {
+    let id = Number(this.activeRoute.snapshot.paramMap.get('id'))
+    let dashboard = this.activeRoute.snapshot.paramMap.get('dashboard')
 
-    this.store.select(getAllEpics).subscribe((data) => {
-      console.log('epics', data);
-      this.epics = data.epics;
-    });
+    if (id && dashboard) {
+      this.pageType = 'update'
+      this.selectedEntity = dashboard.charAt(0).toUpperCase() + dashboard.slice(1).toLowerCase()
+      // this.selectedEntity = 'Story'
+      this.buildEntityForm()
 
-    this.store.select(getAllSprints).subscribe((data) => {
-      console.log('sprints', data);
-      // this.sprintsLength = data.sprints.length;
-      this.sprints = data.sprints;
-    });
+      if (dashboard === "story") {
+        let story = this.stories.find(s => s.StoryId === id)
+        console.log("dashboard", dashboard, "id", id, "story", story, "stories", this.stories);
 
-    this.store.select(getAllStories).subscribe((data) => {
-      console.log('stories', data);
-      this.stories = data.stories;
-    });
-
-    this.store.select(getAllUsers).subscribe((data) => {
-      console.log('users', data);
-      // this.storiesLength = data.users.length;
-      this.users = data.users;
-    });
-
-    this.store.select(getAllRoles).subscribe((data) => {
-      console.log('users', data);
-      // this.storiesLength = data.users.length;
-      this.roles = data.roles;
-    });
+        if (story) {
+          this.entityForm.patchValue(story)
+        }
+      }
+    } else {
+      this.pageType = 'create'
+    }
   }
 
   onEntityTypeChange() {
@@ -317,125 +304,43 @@ export class FormViewComponent {
   }
 
   buildEntityForm() {
-    const controls: any = {};
-
-    switch (this.selectedEntity) {
-      case 'Board':
-        controls['BoardName'] = ['', Validators.required];
-        break;
-
-      case 'Sprint':
-        controls['SprintName'] = ['', Validators.required];
-        controls['SprintNo'] = ['', Validators.required];
-        controls['SprintPoint'] = [''];
-        controls['StartDate'] = [''];
-        controls['EndDate'] = [''];
-        // controls['BoardId'] = [''];
-        // controls['ReleaseId'] = [''];
-        break;
-
-      case 'Story':
-        controls['StoryName'] = ['', Validators.required];
-        controls['Description'] = [''];
-        controls['Flag'] = [false];
-        controls['StatusId'] = [''];
-        controls['BoardId'] = [''];
-        controls['UserId'] = [''];
-        controls['SprintId'] = [''];
-        controls['EpicId'] = [''];
-        break;
-
-      case 'Epic':
-        controls['EpicName'] = ['', Validators.required];
-        controls['Description'] = [''];
-        break;
-
-      case 'User':
-        controls['UserName'] = ['', Validators.required];
-        controls['Email'] = ['', [Validators.required, Validators.email]];
-        controls['Password'] = ['', Validators.required];
-        controls['RoleId'] = [''];
-        break;
-
-      case 'Release':
-        controls['ReleaseName'] = ['', Validators.required];
-        controls['SprintId'] = ['', Validators.required];
-        break;
-
-      default:
-        // Optionally handle default case
-        break;
-    }
-
-    this.entityForm = this.fb.group(controls);
-  }
-
-  submitForm() {
-    console.log('Submitted:', {
-      type: this.selectedEntity,
-      data: this.entityForm.value,
-    });
+    const controls = entityFormControls[this.selectedEntity]?.();
+    this.entityForm = this.fb.group(controls || {});
   }
 
   onSubmit() {
-    // this.entityForm.controls['BoardId'].setValue(this.boardsLength + 1)
+    const formData = this.entityForm.value;
+    const entityType = this.selectedEntity;
+    const idField = `${entityType}Id`;
+    const newId = this.entityIdGenerators[entityType]?.();
 
-    console.log(this.entityForm.value);
-    switch (this.selectedEntity) {
-      case 'Board': {
-        let data = {
-          ...this.entityForm.value,
-          BoardId: this.boards.length + 1,
-        };
-        this.store.dispatch(boardActions.addBoardSuccess({ board: data }));
-        break;
-      }
-      case 'Release': {
-        let data = {
-          ...this.entityForm.value,
-          ReleaseId: this.release.length + 1,
-        };
-        this.store.dispatch(releaseAction.addReleaseSuccess({ release: data }));
-        break;
-      }
-      case 'Epic': {
-        let data = {
-          ...this.entityForm.value,
-          EpicId: this.epics.length + 1,
-        };
-        this.store.dispatch(epicAction.addEpicSuccess({ epic: data }));
-        break;
-      }
-      case 'Sprint': {
-        let data = {
-          ...this.entityForm.value,
-          SprintId: this.sprints.length + 1,
-        };
-        this.store.dispatch(sprintsAction.addSprintSuccess({ sprint: data }));
-        break;
-      }
-      case 'Story': {
-        let data = {
-          ...this.entityForm.value,
-          StoryId: this.stories.length + 1,
-        };
-        this.store.dispatch(storyActions.addStorySuccess({ story: data }));
-        break;
-      }
-      case 'User': {
-        let data = {
-          ...this.entityForm.value,
-          UserId: this.users.length + 1,
-        };
-        this.store.dispatch(usersActions.addUserSuccess({ user: data }));
-        break;
-      }
+    if (newId && entityDispatchers[entityType]) {
+      const entityData = { ...formData, [idField]: newId };
+      const action = entityDispatchers[entityType](entityData);
+      this.store.dispatch(action);
     }
   }
-
   onCreateNewRoleClick() {
     this.dialog.open(RoleDialogComponent, {
       width: '500px',
+    });
+  }
+
+
+  entityIdGenerators: Record<string, () => number> = {
+    Board: () => this.boards.length + 1,
+    Release: () => this.release.length + 1,
+    Epic: () => this.epics.length + 1,
+    Sprint: () => this.sprints.length + 1,
+    Story: () => this.stories.length + 1,
+    User: () => this.users.length + 1,
+  };
+
+
+  subscribeToEntity<T>(selector: any, assignTo: keyof FormViewComponent) {
+    this.store.select(selector).subscribe((data: any) => {
+      const key = Object.keys(data)[0];
+      this[assignTo] = data[key];
     });
   }
 }
