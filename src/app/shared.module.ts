@@ -1,9 +1,4 @@
 import { NgModule } from "@angular/core";
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatFormFieldModule } from "@angular/material/form-field";
 import { CountCardComponent } from './components/count-card/count-card.component';
 import { matModules } from "./utils/constants";
 import { CommonModule } from "@angular/common";
@@ -12,11 +7,8 @@ import { TableViewComponent } from './components/table-view/table-view.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RoleDialogComponent } from './components/role-dialog/role-dialog.component';
-
-// const matModules = [
-
-// ]
-
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { SidebarComponent } from "./components/sidebar/sidebar.component";
 
 @NgModule({
     imports: [
@@ -47,13 +39,17 @@ import { RoleDialogComponent } from './components/role-dialog/role-dialog.compon
         ReactiveFormsModule,
         BrowserAnimationsModule,
         CountCardComponent,
+        NavbarComponent,
+        SidebarComponent,
         TableViewComponent
     ],
     providers: [],
     declarations: [
         CountCardComponent,
         TableViewComponent,
-        RoleDialogComponent
+        RoleDialogComponent,
+        NavbarComponent,
+        SidebarComponent
     ]
 })
 

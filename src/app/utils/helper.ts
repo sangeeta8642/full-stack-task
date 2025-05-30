@@ -10,13 +10,6 @@ import * as usersActions from 'src/app/ngrx/user/users.actions';
 type Role = 'manager' | 'lead' | 'developer';
 export type Context =
     'Board' | 'Sprint' | 'Story' | 'Epic' | 'User' | 'Release'
-// export type Context =
-//     | 'boards'
-//     | 'sprints'
-//     | 'stories'
-//     | 'epics'
-//     | 'releases'
-//     | 'users';
 
 export const actionColumnVisibility: Record<Role, Context[]> = {
     manager: ['Board', 'Sprint', 'Story', 'Epic', 'User', 'Release'],

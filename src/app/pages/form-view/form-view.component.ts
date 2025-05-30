@@ -293,6 +293,46 @@ export class FormViewComponent {
           this.entityForm.patchValue(story)
         }
       }
+      else if (dashboard === 'board') {
+        let board = this.boards.find(s => s.BoardId === id)
+        console.log("dashboard", dashboard, "id", id, "board", board, "boards", this.boards);
+
+        if (board) {
+          this.entityForm.patchValue(board)
+        }
+      }
+      else if (dashboard === 'sprint') {
+        let sprint = this.sprints.find(s => s.SprintId === id)
+        console.log("dashboard", dashboard, "id", id, "sprint", sprint, "sprints", this.sprints);
+
+        if (sprint) {
+          this.entityForm.patchValue(sprint)
+        }
+      }
+      else if (dashboard === 'user') {
+        let user = this.users.find(s => s.UserId === id)
+        console.log("dashboard", dashboard, "id", id, "user", user, "users", this.users);
+
+        if (user) {
+          this.entityForm.patchValue(user)
+        }
+      }
+      else if (dashboard === 'release') {
+        let release = this.release.find(s => s.ReleaseId === id)
+        console.log("dashboard", dashboard, "id", id, "release", release, "releases", this.release);
+
+        if (release) {
+          this.entityForm.patchValue(release)
+        }
+      }
+      else if (dashboard === 'epic') {
+        let epic = this.epics.find(s => s.EpicId === id)
+        console.log("dashboard", dashboard, "id", id, "epic", epic, "epics", this.epics);
+
+        if (epic) {
+          this.entityForm.patchValue(epic)
+        }
+      }
     } else {
       this.pageType = 'create'
     }

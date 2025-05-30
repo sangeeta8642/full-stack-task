@@ -30,8 +30,8 @@ import { UsersComponent } from './dashboards/users/users.component';
   declarations: [
     // ...matModules,
     AppComponent,
-    NavbarComponent,
-    SidebarComponent,
+    // NavbarComponent,
+    // SidebarComponent,
     BoardsComponent,
     SprintsComponent,
     ReleasesComponent,
