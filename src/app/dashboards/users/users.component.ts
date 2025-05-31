@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAllUsers } from 'src/app/ngrx/user/users.selectors';
+import { getAllUsers } from 'src/app/dashboards/users/store/users.selectors';
 import { ColumnConfig, UserInterface } from 'src/app/utils/types';
 
 @Component({

@@ -186,7 +186,7 @@
       </ng-container>
 
       <div class="d-flex flex-row justify-between">
-        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperPrevious *ngIf="pageType==='create'">Back</button>
         <button mat-button (click)="onSubmit()" [disabled]="!entityForm.valid">
           Submit
         </button>

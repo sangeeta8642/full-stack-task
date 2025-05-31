@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAllReleases } from 'src/app/ngrx/releases/releases.selectors';
 import { ColumnConfig, ReleaseInterface } from 'src/app/utils/types';
+import { getAllReleases } from './store/releases.selectors';
 
 @Component({
   selector: 'app-releases',

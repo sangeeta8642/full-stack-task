@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAllEpics } from 'src/app/ngrx/epics/epics.selectors';
+import { getAllEpics } from 'src/app/dashboards/epics/store/epics.selectors';
 import { ColumnConfig, EpicsInterface } from 'src/app/utils/types';
 
 @Component({

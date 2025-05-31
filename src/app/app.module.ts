@@ -8,7 +8,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SharedModules } from './shared.module';
 import { FormsModule } from '@angular/forms';
 
-import { provideAnimations, BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  provideAnimations,
+  BrowserAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { matModules } from './utils/constants';
 import { StoreModule } from '@ngrx/store';
 import { BoardsComponent } from './dashboards/boards/boards.component';
@@ -25,32 +28,45 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EpicsComponent } from './dashboards/epics/epics.component';
 import { UsersComponent } from './dashboards/users/users.component';
+import { BoardModule } from './dashboards/boards/boards.module';
+import { EpicsModule } from './dashboards/epics/epics.module';
+import { SprintsModule } from './dashboards/sprints/sprints.module';
+import { StoriesModule } from './dashboards/stories/stories.module';
+import { UsersModule } from './dashboards/users/users.module';
+import { ReleaseModule } from './dashboards/releases/releases.module';
 
+const customModuls = [
+  SprintsModule,
+  BoardModule,
+  EpicsModule,
+  UsersModule,
+  StoriesModule,
+];
 @NgModule({
   declarations: [
     // ...matModules,
     AppComponent,
-    NavbarComponent,
-    SidebarComponent,
-    BoardsComponent,
-    SprintsComponent,
-    ReleasesComponent,
-    StoriesComponent,
+    // NavbarComponent,
+    // SidebarComponent,
+    // BoardsComponent,
+    // SprintsComponent,
+    // ReleasesComponent,
+    // StoriesComponent,
     HomeComponent,
     FormViewComponent,
     LoginComponent,
-    EpicsComponent,
-    UsersComponent
-
+    // EpicsComponent,
+    // UsersComponent,
 
     // CountCardComponent
-
   ],
   imports: [
-    ...matModules,
+    ...customModuls,
+    // ...matModules,
     BrowserModule,
     AppRoutingModule,
     // RouterModule,
+    ReleaseModule,
     // NavbarComponent
     SharedModules,
     FormsModule,
@@ -58,14 +74,13 @@ import { UsersComponent } from './dashboards/users/users.component';
 
     // CountCardComponent,
 
-
     StoreModule.forRoot(appReducer),
 
     EffectsModule.forRoot([]),
 
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [provideAnimations()],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

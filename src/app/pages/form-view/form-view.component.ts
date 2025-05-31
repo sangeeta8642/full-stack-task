@@ -203,11 +203,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { getAllBoards } from 'src/app/ngrx/boards/boards.selector';
-import { getAllReleases } from 'src/app/ngrx/releases/releases.selectors';
-import { getAllEpics } from 'src/app/ngrx/epics/epics.selectors';
-import { getAllSprints } from 'src/app/ngrx/sprints/sprints.selectors';
-import { getAllStories } from 'src/app/ngrx/stories/stories.selector';
+import { getAllEpics } from 'src/app/dashboards/epics/store/epics.selectors';
+import { getAllSprints } from 'src/app/dashboards/sprints/store/sprints.selectors';
+import { getAllStories } from 'src/app/dashboards/stories/store/stories.selector';
 
 import {
   BoardsInterface,
@@ -219,12 +217,14 @@ import {
   UserInterface,
 } from 'src/app/utils/types';
 
-import { getAllUsers } from 'src/app/ngrx/user/users.selectors';
+import { getAllUsers } from 'src/app/dashboards/users/store/users.selectors';
 import { getAllRoles } from 'src/app/ngrx/roles/role.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { RoleDialogComponent } from 'src/app/components/role-dialog/role-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { Context, entityDispatchers, entityFormControls } from 'src/app/utils/helper';
+import { getAllBoards } from 'src/app/dashboards/boards/store/boards.selector';
+import { getAllReleases } from 'src/app/dashboards/releases/store/releases.selectors';
 
 @Component({
   selector: 'app-form-view',
@@ -291,6 +291,46 @@ export class FormViewComponent {
 
         if (story) {
           this.entityForm.patchValue(story)
+        }
+      }
+      else if (dashboard === 'board') {
+        let board = this.boards.find(s => s.BoardId === id)
+        console.log("dashboard", dashboard, "id", id, "board", board, "boards", this.boards);
+
+        if (board) {
+          this.entityForm.patchValue(board)
+        }
+      }
+      else if (dashboard === 'sprint') {
+        let sprint = this.sprints.find(s => s.SprintId === id)
+        console.log("dashboard", dashboard, "id", id, "sprint", sprint, "sprints", this.sprints);
+
+        if (sprint) {
+          this.entityForm.patchValue(sprint)
+        }
+      }
+      else if (dashboard === 'user') {
+        let user = this.users.find(s => s.UserId === id)
+        console.log("dashboard", dashboard, "id", id, "user", user, "users", this.users);
+
+        if (user) {
+          this.entityForm.patchValue(user)
+        }
+      }
+      else if (dashboard === 'release') {
+        let release = this.release.find(s => s.ReleaseId === id)
+        console.log("dashboard", dashboard, "id", id, "release", release, "releases", this.release);
+
+        if (release) {
+          this.entityForm.patchValue(release)
+        }
+      }
+      else if (dashboard === 'epic') {
+        let epic = this.epics.find(s => s.EpicId === id)
+        console.log("dashboard", dashboard, "id", id, "epic", epic, "epics", this.epics);
+
+        if (epic) {
+          this.entityForm.patchValue(epic)
         }
       }
     } else {
