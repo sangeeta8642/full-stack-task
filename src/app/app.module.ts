@@ -33,8 +33,9 @@ import { EpicsModule } from './dashboards/epics/epics.module';
 import { SprintsModule } from './dashboards/sprints/sprints.module';
 import { StoriesModule } from './dashboards/stories/stories.module';
 import { UsersModule } from './dashboards/users/users.module';
+import { ReleaseModule } from './dashboards/releases/releases.module';
 
-const customModules = [
+const customModuls = [
   SprintsModule,
   BoardModule,
   EpicsModule,
@@ -43,19 +44,35 @@ const customModules = [
 ];
 @NgModule({
   declarations: [
+    // ...matModules,
     AppComponent,
-    ReleasesComponent,
+    // NavbarComponent,
+    // SidebarComponent,
+    // BoardsComponent,
+    // SprintsComponent,
+    // ReleasesComponent,
+    // StoriesComponent,
     HomeComponent,
     FormViewComponent,
     LoginComponent,
+    // EpicsComponent,
+    // UsersComponent,
+
+    // CountCardComponent
   ],
   imports: [
-    ...customModules,
+    ...customModuls,
+    // ...matModules,
     BrowserModule,
     AppRoutingModule,
+    // RouterModule,
+    ReleaseModule,
+    // NavbarComponent
     SharedModules,
     FormsModule,
     BrowserAnimationsModule,
+
+    // CountCardComponent,
 
     StoreModule.forRoot(appReducer),
 
