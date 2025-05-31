@@ -11,29 +11,73 @@ import { UsersComponent } from './dashboards/users/users.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  // {
+  //   path: 'boards',
+  //   children: [{ path: 'dashboard', component: BoardsComponent }],
+  // },
   {
     path: 'boards',
-    children: [{ path: 'dashboard', component: BoardsComponent }],
+    loadChildren: () =>
+      import('./dashboards/boards/boards-routing.module').then(
+        (m) => m.BoardRoutingModule
+      ),
   },
+  // {
+  //   path: 'sprints',
+  //   children: [{ path: 'dashboard', component: SprintsComponent }],
+  // },
+
   {
     path: 'sprints',
-    children: [{ path: 'dashboard', component: SprintsComponent }],
+    loadChildren: () =>
+      import('./dashboards/sprints/sprints-routing.module').then(
+        (m) => m.SprintRoutingModule
+      ),
   },
+  // {
+  //   path: 'stories',
+  //   children: [{ path: 'dashboard', component: StoriesComponent }],
+  // },
   {
     path: 'stories',
-    children: [{ path: 'dashboard', component: StoriesComponent }],
+    loadChildren: () =>
+      import('./dashboards/stories/stories-routing.module').then(
+        (m) => m.StoriesRoutingModule
+      ),
   },
+  // {
+  //   path: 'releases',
+  //   children: [{ path: 'dashboard', component: ReleasesComponent }],
+  // },
   {
     path: 'releases',
-    children: [{ path: 'dashboard', component: ReleasesComponent }],
+    loadChildren: () =>
+      import('./dashboards/releases/releases-routing.module').then(
+        (m) => m.ReleaseRoutingModule
+      ),
   },
+  // {
+  //   path: 'epic',
+  //   children: [{ path: 'dashboard', component: EpicsComponent }],
+  // },
+
   {
     path: 'epic',
-    children: [{ path: 'dashboard', component: EpicsComponent }],
+    loadChildren: () =>
+      import('./dashboards/epics/epics-routing.module').then(
+        (m) => m.EpicsRoutingModule
+      ),
   },
+  // {
+  //   path: 'user',
+  //   children: [{ path: 'dashboard', component: UsersComponent }],
+  // },
   {
     path: 'user',
-    children: [{ path: 'dashboard', component: UsersComponent }],
+    loadChildren: () =>
+      import('./dashboards/users/users-routing.module').then(
+        (m) => m.UserRoutingModule
+      ),
   },
   {
     path: 'create',

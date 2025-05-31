@@ -1,18 +1,18 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { BoardState } from './ngrx/boards/boards.state';
-import { boardReducer } from './ngrx/boards/boards.reducer';
-import { ReleaseState } from './ngrx/releases/releases.state';
-import { releaseReducer } from './ngrx/releases/releases.reducer';
-import { EpicState } from './ngrx/epics/epics.state';
-import { epicReducer } from './ngrx/epics/epics.reducers';
-import { SprintState } from './ngrx/sprints/sprints.state';
-import { sprintReducer } from './ngrx/sprints/sprints.reducers';
-import { StoryState } from './ngrx/stories/stories.state';
-import { storyReducer } from './ngrx/stories/stories.reducers';
-import { UserState } from './ngrx/user/users.state';
-import { userReducer } from './ngrx/user/users.reducers';
+import { EpicState } from './dashboards/epics/store/epics.state';
+import { epicReducer } from './dashboards/epics/store/epics.reducers';
+import { SprintState } from './dashboards/sprints/store/sprints.state';
+import { sprintReducer } from './dashboards/sprints/store/sprints.reducers';
+import { StoryState } from './dashboards/stories/store/stories.state';
+import { storyReducer } from './dashboards/stories/store/stories.reducers';
+import { UserState } from './dashboards/users/store/users.state';
+import { userReducer } from './dashboards/users/store/users.reducers';
 import { RoleState } from './ngrx/roles/role.state';
 import { roleReducer } from './ngrx/roles/role.reducer';
+import { BoardState } from './dashboards/boards/store/boards.state';
+import { boardReducer } from './dashboards/boards/store/boards.reducer';
+import { ReleaseState } from './dashboards/releases/store/releases.state';
+import { releaseReducer } from './dashboards/releases/store/releases.reducer';
 
 export interface AppState {
   boards: BoardState;

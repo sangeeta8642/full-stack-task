@@ -203,11 +203,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { getAllBoards } from 'src/app/ngrx/boards/boards.selector';
-import { getAllReleases } from 'src/app/ngrx/releases/releases.selectors';
-import { getAllEpics } from 'src/app/ngrx/epics/epics.selectors';
-import { getAllSprints } from 'src/app/ngrx/sprints/sprints.selectors';
-import { getAllStories } from 'src/app/ngrx/stories/stories.selector';
+import { getAllEpics } from 'src/app/dashboards/epics/store/epics.selectors';
+import { getAllSprints } from 'src/app/dashboards/sprints/store/sprints.selectors';
+import { getAllStories } from 'src/app/dashboards/stories/store/stories.selector';
 
 import {
   BoardsInterface,
@@ -219,12 +217,14 @@ import {
   UserInterface,
 } from 'src/app/utils/types';
 
-import { getAllUsers } from 'src/app/ngrx/user/users.selectors';
+import { getAllUsers } from 'src/app/dashboards/users/store/users.selectors';
 import { getAllRoles } from 'src/app/ngrx/roles/role.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { RoleDialogComponent } from 'src/app/components/role-dialog/role-dialog.component';
 import { ActivatedRoute } from '@angular/router';
 import { Context, entityDispatchers, entityFormControls } from 'src/app/utils/helper';
+import { getAllBoards } from 'src/app/dashboards/boards/store/boards.selector';
+import { getAllReleases } from 'src/app/dashboards/releases/store/releases.selectors';
 
 @Component({
   selector: 'app-form-view',

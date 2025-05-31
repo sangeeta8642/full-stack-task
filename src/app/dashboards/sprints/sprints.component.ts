@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAllSprints } from 'src/app/ngrx/sprints/sprints.selectors';
+import { getAllSprints } from 'src/app/dashboards/sprints/store/sprints.selectors';
 import { ColumnConfig, SprintsInterface } from 'src/app/utils/types';
 
 @Component({

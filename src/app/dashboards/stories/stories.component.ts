@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAllStories } from 'src/app/ngrx/stories/stories.selector';
+import { getAllStories } from 'src/app/dashboards/stories/store/stories.selector';
 import { ColumnConfig, StoriesInterface } from 'src/app/utils/types';
 
 @Component({

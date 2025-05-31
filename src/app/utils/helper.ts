@@ -1,11 +1,11 @@
 import { Validators } from "@angular/forms";
 
-import * as boardActions from 'src/app/ngrx/boards/boards.actions';
-import * as releaseAction from 'src/app/ngrx/releases/releases.action';
-import * as epicAction from 'src/app/ngrx/epics/epics.actions';
-import * as sprintsAction from 'src/app/ngrx/sprints/sprints.actions';
-import * as storyActions from 'src/app/ngrx/stories/stories.actions';
-import * as usersActions from 'src/app/ngrx/user/users.actions';
+import * as releaseAction from 'src/app/dashboards/releases/store/releases.action';
+import * as epicAction from 'src/app/dashboards/epics/store/epics.actions';
+import * as sprintsAction from 'src/app/dashboards/sprints/store/sprints.actions';
+import * as boardActions from 'src/app/dashboards/boards/store/boards.actions';
+import * as storyActions from 'src/app/dashboards/stories/store/stories.actions';
+import * as usersActions from 'src/app/dashboards/users/store/users.actions';
 
 type Role = 'manager' | 'lead' | 'developer';
 export type Context =

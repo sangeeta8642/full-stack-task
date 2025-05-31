@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getAllBoards } from 'src/app/ngrx/boards/boards.selector';
 import { BoardsInterface, ColumnConfig } from 'src/app/utils/types';
+import { getAllBoards } from './store/boards.selector';
 
 @Component({
   selector: 'app-boards',
