@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserInterface } from 'src/app/utils/types';
+import { loginFirstTimeModel, LoginInterface, UserInterface } from 'src/app/utils/types';
 
 export const loadUsers = createAction('[users] Load Users');
 export const loadUsersSuccess = createAction(
@@ -12,6 +12,7 @@ export const loadUsersFailed = createAction(
 );
 
 export const addUser = createAction('[users] Add User');
+export const addStagedUser = createAction('[users] Add Staged User', props<UserInterface>());
 export const addUserSuccess = createAction(
   '[users] Add User Success',
   props<{ user: UserInterface }>()
@@ -21,13 +22,33 @@ export const addUserFailed = createAction(
   props<{ error: any }>()
 );
 
-export const loginUser = createAction('[users] Login User');
+export const loginUser = createAction(
+  '[users] Login User',
+  props<LoginInterface>()
+);
 export const loginUserSuccess = createAction(
   '[users] Login User Success',
   props<{ user: UserInterface }>()
 );
 export const loginUserFailed = createAction(
   '[users] Login User Failed',
+  props<{ error: any }>()
+);
+
+export const logOutUser = createAction(
+  '[users] Log Out User'
+);
+
+export const loginFirstTime = createAction(
+  '[users] Login User First Time',
+  props<loginFirstTimeModel>()
+);
+export const loginFirstTimeSuccess = createAction(
+  '[users] Login User First Time Success',
+  props<{ user: UserInterface }>()
+);
+export const loginFirstTimeFailed = createAction(
+  '[users] Login User First Time Failed',
   props<{ error: any }>()
 );
 

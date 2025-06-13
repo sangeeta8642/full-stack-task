@@ -9,29 +9,29 @@ export interface EpicState {
 export const initialEpicState: EpicState = {
     epics: [
         {
-            EpicId: 1,
-            EpicName: 'User Onboarding',
-            Description: 'Implement features related to new user registration and authentication.'
+            epicId: 1,
+            epicName: 'User Onboarding',
+            description: 'Implement features related to new user registration and authentication.'
         },
         {
-            EpicId: 2,
-            EpicName: 'Dashboard Revamp',
-            Description: 'Redesign and enhance the main user dashboard with new widgets and charts.'
+            epicId: 2,
+            epicName: 'Dashboard Revamp',
+            description: 'Redesign and enhance the main user dashboard with new widgets and charts.'
         },
         {
-            EpicId: 3,
-            EpicName: 'Payment Integration',
-            Description: 'Integrate third-party payment gateways such as Stripe and PayPal.'
+            epicId: 3,
+            epicName: 'Payment Integration',
+            description: 'Integrate third-party payment gateways such as Stripe and PayPal.'
         },
         {
-            EpicId: 4,
-            EpicName: 'Notification System',
-            Description: 'Create a system for sending real-time and scheduled notifications.'
+            epicId: 4,
+            epicName: 'Notification System',
+            description: 'Create a system for sending real-time and scheduled notifications.'
         },
         {
-            EpicId: 5,
-            EpicName: 'Analytics Module',
-            Description: 'Develop a module to track user activities and provide insights.'
+            epicId: 5,
+            epicName: 'Analytics Module',
+            description: 'Develop a module to track user activities and provide insights.'
         }
 
     ],

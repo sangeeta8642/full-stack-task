@@ -11,17 +11,21 @@ export interface ColumnConfig {
 }
 
 export interface BoardsInterface {
-  BoardId: number;
-  BoardName: string;
+  boardId?: number;
+  boardName: string;
 }
 
 export interface EpicsInterface {
-  EpicId: number;
-  EpicName: string;
-  Description: string;
+  id?: number;
+  title?: any;
+  epicId: number;
+  epicName: string;
+  description: string;
+  stories?: StoriesInterface[]
 }
 
 export interface StoriesInterface {
+  id?: number,
   StoryId: number;
   StoryName: string;
   Description: string;
@@ -39,20 +43,25 @@ export interface ReleaseInterface {
 }
 
 export interface SprintsInterface {
-  SprintId: number;
-  SprintNo: string;
-  SprintName: string;
-  SprintPoint: number;
-  StartDate: string | Date;
-  EndDate: string | Date;
+  sprintId: number;
+  sprintNo: string;
+  sprintName: string;
+  sprintPoint: number;
+  startDate: string | Date;
+  endDate: string | Date;
+  board: BoardsInterface
 }
 
 export interface UserInterface {
   UserId?: number;
   UserName: string;
   Email: string;
-  Password: string;
-  RoleId: number;
+  Password?: string;
+  password?: string;
+  RoleId?: number;
+  role?: RoleInterface;
+  userName?: string;
+
 }
 
 export interface StatusInterface {
@@ -63,4 +72,17 @@ export interface StatusInterface {
 export interface RoleInterface {
   id?: number;
   Title: string;
+  title?: string;
+}
+
+export interface LoginInterface {
+  email: string,
+  password: string,
+  newPassword?: string
+}
+
+export interface loginFirstTimeModel {
+  email: string,
+  defaultPassword: string,
+  newPassword: string
 }

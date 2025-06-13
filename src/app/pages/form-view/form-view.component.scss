@@ -1,5 +1,10 @@
+.mat-horizontal-stepper-wrapper{
+    height: 85dvh !important;
+}
+
 form {
     width: 600px;
+    height: 85dvh;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;

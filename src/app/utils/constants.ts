@@ -14,6 +14,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDividerModule } from '@angular/material/divider'
 
 export const matModules = [
   MatSidenavModule,
@@ -35,6 +37,8 @@ export const matModules = [
   MatMenuModule,
   MatNativeDateModule,
   MatCheckboxModule,
+  DragDropModule,
+  MatDividerModule
 ];
 
 export const card_colours = [
@@ -69,3 +73,5 @@ export const users = [
     password: 'developer',
   },
 ];
+
+export const BACKEND_URL = 'http://localhost:8080'

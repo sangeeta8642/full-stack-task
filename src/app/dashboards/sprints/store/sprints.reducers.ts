@@ -6,20 +6,24 @@ import { initialSprintState } from "./sprints.state";
 
 export const sprintReducer = createReducer(
     initialSprintState,
-    on(sprintActions.loadSprintsSuccess, (state, actions) => ({
-        ...state,
-        sprints: actions.sprints
-    })),
+    on(sprintActions.loadSprintsSuccess, (state, actions) => {
+        console.log("Sprint load action", actions);
+
+        return {
+            ...state,
+            sprints: actions.sprints
+        }
+    }),
     on(sprintActions.addSprintSuccess, (state, action) => ({
         ...state,
         sprints: [...state.sprints, action.sprint]
     })),
     on(sprintActions.updateSprintSuccess, (state, action) => ({
         ...state,
-        sprints: state.sprints.map(b => b.SprintId === action.id ? action.sprint : b)
+        sprints: state.sprints.map(b => b.sprintId === action.id ? action.sprint : b)
     })),
     on(sprintActions.deleteSprintSuccess, (state, action) => ({
         ...state,
-        sprints: state.sprints.filter(b => b.SprintId != action.id)
+        sprints: state.sprints.filter(b => b.sprintId != action.id)
     }))
 )

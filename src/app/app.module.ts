@@ -34,6 +34,12 @@ import { SprintsModule } from './dashboards/sprints/sprints.module';
 import { StoriesModule } from './dashboards/stories/stories.module';
 import { UsersModule } from './dashboards/users/users.module';
 import { ReleaseModule } from './dashboards/releases/releases.module';
+import { BoardEffect } from './dashboards/boards/store/boards.effects';
+import { UserEffect } from './dashboards/users/store/users.effects';
+import { UnauthComponent } from './pages/unauth/unauth.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { SprintEffect } from './dashboards/sprints/store/sprints.effects';
 
 const customModuls = [
   SprintsModule,
@@ -44,25 +50,14 @@ const customModuls = [
 ];
 @NgModule({
   declarations: [
-    // ...matModules,
     AppComponent,
-    // NavbarComponent,
-    // SidebarComponent,
-    // BoardsComponent,
-    // SprintsComponent,
-    // ReleasesComponent,
-    // StoriesComponent,
     HomeComponent,
     FormViewComponent,
     LoginComponent,
-    // EpicsComponent,
-    // UsersComponent,
-
-    // CountCardComponent
+    UnauthComponent,
   ],
   imports: [
     ...customModuls,
-    // ...matModules,
     BrowserModule,
     AppRoutingModule,
     // RouterModule,
@@ -76,11 +71,11 @@ const customModuls = [
 
     StoreModule.forRoot(appReducer),
 
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([BoardEffect, UserEffect, SprintEffect]),
 
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
-  providers: [provideAnimations()],
+  providers: [provideAnimations(), { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

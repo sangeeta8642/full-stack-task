@@ -15,10 +15,10 @@ export const epicReducer = createReducer(
     })),
     on(epicsAction.updateEpicSuccess, (state, action) => ({
         ...state,
-        epics: state.epics.map(b => b.EpicId === action.id ? action.epic : b)
+        epics: state.epics.map(b => b.epicId === action.id ? action.epic : b)
     })),
     on(epicsAction.deleteEpicSuccess, (state, action) => ({
         ...state,
-        epics: state.epics.filter(b => b.EpicId != action.id)
+        epics: state.epics.filter(b => b.epicId != action.id)
     }))
 )

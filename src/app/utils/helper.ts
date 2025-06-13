@@ -1,11 +1,5 @@
 import { Validators } from "@angular/forms";
-
-import * as releaseAction from 'src/app/dashboards/releases/store/releases.action';
-import * as epicAction from 'src/app/dashboards/epics/store/epics.actions';
-import * as sprintsAction from 'src/app/dashboards/sprints/store/sprints.actions';
-import * as boardActions from 'src/app/dashboards/boards/store/boards.actions';
-import * as storyActions from 'src/app/dashboards/stories/store/stories.actions';
-import * as usersActions from 'src/app/dashboards/users/store/users.actions';
+import { boardActions, epicActions, releaseActions, sprintActions, storyActions, userActions } from "..";
 
 type Role = 'manager' | 'lead' | 'developer';
 export type Context =
@@ -19,14 +13,15 @@ export const actionColumnVisibility: Record<Role, Context[]> = {
 
 export const entityFormControls: Record<string, () => any> = {
     Board: () => ({
-        BoardName: ['', Validators.required],
+        boardName: ['', Validators.required],
     }),
     Sprint: () => ({
-        SprintName: ['', Validators.required],
-        SprintNo: ['', Validators.required],
-        SprintPoint: [''],
-        StartDate: [''],
-        EndDate: [''],
+        sprintName: ['', Validators.required],
+        sprintNo: ['', Validators.required],
+        sprintPoint: ['', Validators.required],
+        boardId: ['', Validators.required],
+        startDate: [new Date(), Validators.required],
+        endDate: [new Date().getDate() + 7, Validators.required],
     }),
     Story: () => ({
         StoryName: ['', Validators.required],
@@ -56,11 +51,20 @@ export const entityFormControls: Record<string, () => any> = {
 
 
 export const entityDispatchers: Record<string, (data: any) => any> = {
-    Board: (data) => boardActions.addBoardSuccess({ board: data }),
-    Release: (data) => releaseAction.addReleaseSuccess({ release: data }),
-    Epic: (data) => epicAction.addEpicSuccess({ epic: data }),
-    Sprint: (data) => sprintsAction.addSprintSuccess({ sprint: data }),
+    Board: (data) => boardActions.addBoard(data),
+    Release: (data) => releaseActions.addReleaseSuccess({ release: data }),
+    Epic: (data) => epicActions.addEpicSuccess({ epic: data }),
+    Sprint: (data) => sprintActions.addSprint(data),
     Story: (data) => storyActions.addStorySuccess({ story: data }),
-    User: (data) => usersActions.addUserSuccess({ user: data }),
+    User: (data) => userActions.addStagedUser(data),
+};
+
+export const entityDispatchersForUpdate: Record<string, (id: number, data: any) => any> = {
+    Board: (id, data) => boardActions.updateBoard({ id, board: data }),
+    // Release: (data) => releaseAction.addReleaseSuccess({ release: data }),
+    // Epic: (data) => epicAction.addEpicSuccess({ epic: data }),
+    Sprint: (id, data) => sprintActions.updateSprint({ id, sprint: data }),
+    // Story: (data) => storyActions.addStorySuccess({ story: data }),
+    // User: (data) => usersActions.addStagedUser(data),
 };
 

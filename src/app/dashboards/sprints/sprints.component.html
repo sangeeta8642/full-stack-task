@@ -1,1 +1,71 @@
-<app-table-view [columns]="sprintColumns" [dataSource]="sprints" [context]="'Sprint'"></app-table-view>
+<!-- <div class="kanban-board">
+    <div class="kanban-column" *ngFor="let column of columns">
+        <h3>{{ column }}</h3>
+
+        <div *ngFor="let epic of currentSprint">
+            <ng-container *ngIf="hasStoriesInColumn(epic, column)">
+                <mat-card class="epic-card">
+                    <mat-card-title>{{ epic.title }}</mat-card-title>
+
+                    <div cdkDropList [id]="getDropListId(epic.id,column)"
+                        [cdkDropListConnectedTo]="connectedDropLists"
+                        [cdkDropListData]="getStoriesForColumn(epic, column)"
+                        (cdkDropListDropped)="onStoryDrop($event, epic, column)">
+
+                        <div *ngFor="let story of getStoriesForColumn(epic, column)" cdkDrag>
+                            <mat-card class="story-card">
+                                {{ story.title }}
+                            </mat-card>
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-card class="epic-card">
+                    <mat-card-title>{{ epic.title }}</mat-card-title>
+
+                    <div cdkDropList [id]="getDropListId(epic.id, column)" [cdkDropListConnectedTo]="connectedDropLists"
+                        [cdkDropListData]="getStoriesForColumn(epic, column)"
+                        (cdkDropListDropped)="onStoryDrop($event, epic, column)">
+
+                        <div *ngIf="getStoriesForColumn(epic, column).length === 0" class="empty-placeholder">
+                            <em>Drop story here</em>
+                        </div>
+                        <div *ngFor="let story of getStoriesForColumn(epic, column)" cdkDrag>
+                            <mat-card class="story-card">{{ story.title }}</mat-card>
+                        </div>
+
+                    </div>
+                </mat-card>
+
+
+            </ng-container>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="kanban-board" *ngIf="connectedDropLists.length">
+    <div class="kanban-column" *ngFor="let column of columns">
+        <h2 class="column-title">{{ column.replace('_', ' ') }}</h2>
+
+        <div *ngFor="let epic of currentSprint" class="epic-wrapper">
+            <mat-card class="epic-card">
+                <mat-card-title>{{ epic.title }}</mat-card-title>
+
+                <div cdkDropList [id]="getDropListId(epic.id, column)" [cdkDropListConnectedTo]="connectedDropLists"
+                    [cdkDropListData]="getStoriesForColumn(epic, column)"
+                    (cdkDropListDropped)="onStoryDrop($event, epic, column)" class="drop-zone">
+                    <div *ngIf="getStoriesForColumn(epic, column).length === 0" class="empty-placeholder">
+                        <em>Drop story here</em>
+                    </div>
+
+                     <div *ngFor="let story of getStoriesForColumn(epic, column)" cdkDrag>
+                        <mat-card class="story-card">
+                            {{ story.title }}
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div> -->
+
+<app-table-view [columns]="sprintColumns" [dataSource]="sprints" [context]="'Sprint'" ></app-table-view>

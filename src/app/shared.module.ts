@@ -9,34 +9,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleDialogComponent } from './components/role-dialog/role-dialog.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    // MatSidenavModule,s
-    // MatIconModule,
-    // MatButtonModule,
-    // MatButtonModule,
-    // MatToolbarModule,
-    // MatFormFieldModule
     ...matModules,
     CommonModule,
     RouterModule,
+    HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    FormsModule,
-    // CountCardComponent
+    FormsModule
   ],
   exports: [
-    // MatSidenavModule,
-    // MatIconModule,
-    // MatButtonModule,
-    // MatButtonModule,
-    // MatToolbarModule,
-    // MatFormFieldModule,
-    // CountCardComponent
     ...matModules,
     CommonModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     CountCardComponent,
     NavbarComponent,
@@ -52,4 +41,4 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     SidebarComponent,
   ],
 })
-export class SharedModules {}
+export class SharedModules { }

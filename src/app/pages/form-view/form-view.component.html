@@ -1,4 +1,5 @@
 <mat-horizontal-stepper [linear]="true" #stepper>
+  <button mat-button (click)="close()">Close</button>
   <!-- Step 1 -->
   <mat-step [stepControl]="typeForm" *ngIf="pageType==='create'">
     <form [formGroup]="typeForm">
@@ -32,7 +33,7 @@
         <div *ngSwitchCase="'Board'">
           <mat-form-field appearance="fill">
             <mat-label>Board Name</mat-label>
-            <input matInput formControlName="BoardName" required />
+            <input matInput formControlName="boardName" required />
           </mat-form-field>
         </div>
 
@@ -40,19 +41,26 @@
         <div *ngSwitchCase="'Sprint'">
           <mat-form-field appearance="fill">
             <mat-label>Sprint Name</mat-label>
-            <input matInput formControlName="SprintName" required />
+            <input matInput formControlName="sprintName" required />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Board</mat-label>
+            <!-- <input matInput formControlName="BoardId" type="number" /> -->
+            <mat-select formControlName="boardId">
+              <mat-option *ngFor="let board of boards" [value]="board.boardId">{{ board.boardName }}</mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Sprint Number</mat-label>
-            <input matInput formControlName="SprintNo" required />
+            <input matInput formControlName="sprintNo" required />
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Sprint Point</mat-label>
-            <input matInput formControlName="SprintPoint" type="number" />
+            <input matInput formControlName="sprintPoint" type="number" />
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Start Date</mat-label>
-            <input matInput [matDatepicker]="startDatePicker" formControlName="StartDate" readonly
+            <input matInput [matDatepicker]="startDatePicker" formControlName="startDate" readonly
               (click)="startDatePicker.open()" />
             <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #startDatePicker></mat-datepicker>
@@ -60,7 +68,7 @@
 
           <mat-form-field appearance="fill">
             <mat-label>End Date</mat-label>
-            <input matInput [matDatepicker]="endDatePicker" formControlName="EndDate" (click)="endDatePicker.open()"
+            <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" (click)="endDatePicker.open()"
               readonly />
             <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #endDatePicker></mat-datepicker>
@@ -89,13 +97,13 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <!-- <mat-form-field appearance="fill">
             <mat-label>Board</mat-label>
-            <!-- <input matInput formControlName="BoardId" type="number" /> -->
+            <input matInput formControlName="BoardId" type="number" />
             <mat-select formControlName="BoardId">
-              <mat-option *ngFor="let board of boards" [value]="board.BoardId">{{ board.BoardName }}</mat-option>
+              <mat-option *ngFor="let board of boards" [value]="board.boardId">{{ board.boardName }}</mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
 
           <mat-form-field appearance="fill">
             <mat-label>User</mat-label>
@@ -111,7 +119,7 @@
             <mat-label>Sprint</mat-label>
             <!-- <input matInput formControlName="SprintId" type="number" /> -->
             <mat-select formControlName="SprintId">
-              <mat-option *ngFor="let sprint of sprints" [value]="sprint.SprintId">{{ sprint.SprintName }}</mat-option>
+              <mat-option *ngFor="let sprint of sprints" [value]="sprint.sprintId">{{ sprint.sprintName }}</mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -119,8 +127,8 @@
             <mat-label>Epic</mat-label>
             <!-- <input matInput formControlName="EpicId" type="number" /> -->
             <mat-select formControlName="EpicId">
-              <mat-option *ngFor="let epic of epics" [value]="epic.EpicId">{{
-                epic.EpicName
+              <mat-option *ngFor="let epic of epics" [value]="epic.epicId">{{
+                epic.epicName
                 }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -156,7 +164,7 @@
             <mat-label>Role</mat-label>
             <!-- <input matInput formControlName="RoleId" type="number" /> -->
             <mat-select formControlName="RoleId">
-              <mat-option *ngFor="let r of roles" [value]="r.id">{{
+              <mat-option *ngFor="let r of roles" [value]="r.Title">{{
                 r.Title
                 }}</mat-option>
               <mat-option (onSelectionChange)="onCreateNewRoleClick()">
@@ -177,8 +185,8 @@
             <mat-label>Sprint ID</mat-label>
             <!-- <input matInput formControlName="SprintId" type="number" /> -->
             <mat-select formControlName="SprintId">
-              <mat-option *ngFor="let s of sprints" [value]="s.SprintId">{{
-                s.SprintName
+              <mat-option *ngFor="let s of sprints" [value]="s.sprintId">{{
+                s.sprintName
                 }}</mat-option>
             </mat-select>
           </mat-form-field>
