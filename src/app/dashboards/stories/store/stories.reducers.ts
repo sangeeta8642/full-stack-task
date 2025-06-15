@@ -16,10 +16,10 @@ export const storyReducer = createReducer(
     })),
     on(storyAction.updateStorySuccess, (state, action) => ({
         ...state,
-        stories: state.stories.map(b => b.StoryId === action.id ? action.story : b)
+        stories: state.stories.map(b => b.storyId === action.id ? action.story : b)
     })),
     on(storyAction.deleteStorySuccess, (state, action) => ({
         ...state,
-        stories: state.stories.filter(b => b.StoryId != action.id)
+        stories: state.stories.filter(b => b.storyId != action.id)
     }))
 )

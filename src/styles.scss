@@ -22,7 +22,7 @@ body {
 .w-full {
   width: 100%;
 }
-.w-100dvh{
+.w-100dvh {
   width: 100dvw !important;
 }
 
@@ -40,12 +40,10 @@ body {
 
 .w-0px {
   width: 0px !important;
-
 }
 
 .w-20dvh {
   width: 20dvw !important;
-
 }
 
 .d-flex {
@@ -80,6 +78,10 @@ body {
   flex-direction: column;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
+}
+
+.hover-text-underline:hover {
+  text-decoration: underline;
 }

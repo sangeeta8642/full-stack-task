@@ -39,6 +39,7 @@ export class UserEffect {
                     alert(res.message)
                     this.authService.setToken(res.token)
                     this.authService.setUser(res.user)
+                    this.router.navigateByUrl('/')
                     return userActions.loginUserSuccess({ user: res.user })
                 }),
                 catchError(error => of(userActions.loginUserFailed({ error: error.message })))

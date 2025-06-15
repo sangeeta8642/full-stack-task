@@ -3,12 +3,17 @@ import { FormViewComponent } from './pages/form-view/form-view.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UnauthComponent } from './pages/unauth/unauth.component';
-import { authOnlyGuard, guestOnlyGuard, roleBasedGuard } from './auth/auth.gaurd';
+import {
+  authOnlyGuard,
+  guestOnlyGuard,
+  roleBasedGuard,
+} from './auth/auth.gaurd';
 
 export const routes: Routes = [
   {
-    path: '', component: HomeComponent,
-    canActivate: [authOnlyGuard]
+    path: '',
+    component: HomeComponent,
+    canActivate: [authOnlyGuard],
   },
   {
     path: 'boards',
@@ -19,8 +24,16 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'sprints'
-    , canActivate: [authOnlyGuard],
+    path: 'subtask',
+    canActivate: [authOnlyGuard],
+    loadChildren: () =>
+      import('./dashboards/subtask/subtask-routing.module').then(
+        (m) => m.SubtaskRoutingModule
+      ),
+  },
+  {
+    path: 'sprints',
+    canActivate: [authOnlyGuard],
     loadChildren: () =>
       import('./dashboards/sprints/sprints-routing.module').then(
         (m) => m.SprintRoutingModule
@@ -61,17 +74,17 @@ export const routes: Routes = [
   {
     path: 'create',
     component: FormViewComponent,
-    canActivate: [roleBasedGuard]
+    canActivate: [roleBasedGuard],
   },
   {
     path: 'update/:dashboard/:id',
     component: FormViewComponent,
-    canActivate: [roleBasedGuard]
+    canActivate: [roleBasedGuard],
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [guestOnlyGuard]
+    canActivate: [guestOnlyGuard],
   },
   {
     path: 'unauth',

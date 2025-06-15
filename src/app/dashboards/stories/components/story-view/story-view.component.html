@@ -1,1 +1,20 @@
-<p>story-view works!</p>
+<section class="main-container">
+  <h3 class="story-title">{{ story.storyName || "" }}</h3>
+  <p class="story-des">{{ story.description || "" }}</p>
+  <p class="story-user">Active User: {{ story.users?.userName || "" }}</p>
+
+  <button mat-flat-button color="primary" (click)="openTaskDialog()">
+    + Create Subtask
+  </button>
+
+  <ng-container *ngIf="subtasks.length > 0">
+    <app-table-view
+      [columns]="subtaskColumns"
+      [dataSource]="subtasks"
+      [context]="'Subtask'"
+    ></app-table-view>
+  </ng-container>
+  <ng-container *ngIf="subtasks.length <= 0">
+    <p>No subtasks found</p>
+  </ng-container>
+</section>

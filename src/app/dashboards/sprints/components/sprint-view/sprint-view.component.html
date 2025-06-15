@@ -1,58 +1,70 @@
 <div class="kanban-board" *ngIf="connectedDropLists.length">
-    <div class="kanban-column" *ngFor="let column of columns">
-        <h2 class="column-title">{{ column.replace('_', ' ') }}</h2>
+  <div class="kanban-column" *ngFor="let column of columns">
+    <h2 class="column-title">{{ column.replace("_", " ") }}</h2>
 
-        <div *ngFor="let epic of currentSprint" class="epic-wrapper">
-            <mat-card class="epic-card">
-                <mat-card-title>{{ epic.title }}</mat-card-title>
+    <div *ngFor="let epic of currentSprint" class="epic-wrapper">
+      <mat-card class="epic-card">
+        <mat-card-title>{{ epic.title }}</mat-card-title>
 
-                <div cdkDropList [id]="getDropListId(epic.id, column)" [cdkDropListConnectedTo]="connectedDropLists"
-                    [cdkDropListData]="getStoriesForColumn(epic, column)"
-                    (cdkDropListDropped)="onStoryDrop($event, epic, column)" class="drop-zone">
-                    <!-- Empty placeholder -->
-                    <div *ngIf="getStoriesForColumn(epic, column).length === 0" class="empty-placeholder">
-                        <em>Drop story here</em>
-                    </div>
+        <div
+          cdkDropList
+          [id]="getDropListId(epic.id, column)"
+          [cdkDropListConnectedTo]="connectedDropLists"
+          [cdkDropListData]="getStoriesForColumn(epic, column)"
+          (cdkDropListDropped)="onStoryDrop($event, epic, column)"
+          class="drop-zone"
+        >
+          <!-- Empty placeholder -->
+          <div
+            *ngIf="getStoriesForColumn(epic, column).length === 0"
+            class="empty-placeholder"
+          >
+            <em>Drop story here</em>
+          </div>
 
-                    <!-- Stories -->
-                    <div *ngFor="let story of getStoriesForColumn(epic, column)" cdkDrag>
-                        <mat-card class="story-card">
-                            {{ story.title }}
-                            <!-- <ng-container matColumnDef="action"> -->
-                            <!-- <th mat-header-cell *matHeaderCellDef> Actions </th> -->
-                            <!-- <td mat-cell *matCellDef="let element"> -->
-                            <div>
-                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions menu">
-                                    <mat-icon>keyboard_arrow_down</mat-icon>
-                                </button>
+          <!-- Stories -->
+          <div *ngFor="let story of getStoriesForColumn(epic, column)" cdkDrag>
+            <mat-card class="story-card">
+              <span class="hover-text-underline cursor-pointer" (click)="redirectToStoryView(story.id)">
+                {{ story.title }}
+              </span>
+              <!-- <ng-container matColumnDef="action"> -->
+              <!-- <th mat-header-cell *matHeaderCellDef> Actions </th> -->
+              <!-- <td mat-cell *matCellDef="let element"> -->
+              <div>
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Actions menu"
+                >
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
 
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item>
-                                        <mat-icon>visibility</mat-icon>
-                                        <span>View</span>
-                                    </button>
-                                    <!-- <button mat-menu-item (click)="editElement(element)"> -->
-                                    <button mat-menu-item (click)="openDialog(story)">
-                                        <!-- <button mat-menu-item> -->
-                                        <mat-icon>edit</mat-icon>
-                                        <span>Edit</span>
-                                    </button>
-                                    <button mat-menu-item>
-                                        <!-- <button mat-menu-item (click)="deleteElement(element)"> -->
-                                        <mat-icon>delete</mat-icon>
-                                        <span>Delete</span>
-
-                                    </button></mat-menu>
-                            </div>
-                            <!-- </td>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="redirectToStoryView(story.id)">
+                    <mat-icon>visibility</mat-icon>
+                    <span>View</span>
+                  </button>
+                  <!-- <button mat-menu-item (click)="editElement(element)"> -->
+                  <button mat-menu-item (click)="openDialog(story)">
+                    <!-- <button mat-menu-item> -->
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item>
+                    <!-- <button mat-menu-item (click)="deleteElement(element)"> -->
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button></mat-menu
+                >
+              </div>
+              <!-- </td>
                             </ng-container> -->
-                        </mat-card>
-                    </div>
-                </div>
             </mat-card>
+          </div>
         </div>
+      </mat-card>
     </div>
+  </div>
 </div>
-<div *ngIf="!connectedDropLists.length">
-    No Epics Found
-</div>
+<div *ngIf="!connectedDropLists.length">No Epics Found</div>

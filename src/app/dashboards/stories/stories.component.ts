@@ -1,57 +1,61 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { storyActions } from 'src/app';
 import { getAllStories } from 'src/app/dashboards/stories/store/stories.selector';
 import { ColumnConfig, StoriesInterface } from 'src/app/utils/types';
 
 @Component({
   selector: 'app-stories',
   templateUrl: './stories.component.html',
-  styleUrls: ['./stories.component.scss']
+  styleUrls: ['./stories.component.scss'],
 })
 export class StoriesComponent {
+  ngOnInit() {
+    this.store.dispatch(storyActions.loadStories());
+  }
+
   storyColumns: ColumnConfig[] = [
     {
       columnDef: 'StoryId',
       header: 'ID',
-      cell: (element: any) => `${element.StoryId}`
+      cell: (element: any) => `${element.storyId}`,
     },
     {
       columnDef: 'StoryName',
       header: 'Name',
-      cell: (element: any) => `${element.StoryName}`
+      cell: (element: any) => `${element.storyName}`,
     },
     {
       columnDef: 'Description',
       header: 'Description',
-      cell: (element: any) => `${element.Description}`
+      cell: (element: any) => `${element.description}`,
     },
     {
       columnDef: 'StatusId',
       header: 'Status ID',
-      cell: (element: any) => `${element.StatusId}`
+      cell: (element: any) => `${element.statusId}`,
     },
     {
       columnDef: 'BoardId',
       header: 'Board ID',
-      cell: (element: any) => `${element.BoardId}`
+      cell: (element: any) => `${element.boardId}`,
     },
     {
       columnDef: 'UserId',
       header: 'User ID',
-      cell: (element: any) => `${element.UserId}`
+      cell: (element: any) => `${element.userId}`,
     },
     {
       columnDef: 'SprintId',
       header: 'Sprint ID',
-      cell: (element: any) => `${element.SprintId}`
+      cell: (element: any) => `${element.sprintId}`,
     },
     {
       columnDef: 'EpicId',
       header: 'Epic ID',
-      cell: (element: any) => `${element.EpicId}`
-    }
+      cell: (element: any) => `${element.epicId}`,
+    },
   ];
-
 
   stories: StoriesInterface[] = [
     // { StoryId: 1, StoryName: "Login Page", Description: "Design login UI", StatusId: 1, BoardId: 1, UserId: 1, SprintId: 1, EpicId: 1 },
@@ -62,9 +66,8 @@ export class StoriesComponent {
   ];
 
   constructor(private store: Store) {
-    this.store.select(getAllStories).subscribe(res => (
-      this.stories = res.stories
-    ))
+    this.store
+      .select(getAllStories)
+      .subscribe((res) => (this.stories = res.stories));
   }
-
 }

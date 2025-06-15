@@ -68,14 +68,15 @@ export const roleBasedGuard: CanActivateFn = () => {
     const store = inject(Store);
     const router = inject(Router);
     const authService = inject(AuthService)
-    const allowedRoles = ['manager', 'lead'];
+    const allowedRoles = ['manager', 'lead','Team lead'];
     return store.select(getAllUsers).pipe(
         map(res => {
             // const user = authService.getUser()
-            const role = res.user?.role?.title
+            const role = res.user?.role?.title || res.user?.roleId
             console.log("Role", role);
 
-            if (role && allowedRoles.includes(role?.toLowerCase())) return true
+            // if (role && allowedRoles.includes(role?.toLowerCase())) return true
+            if (role && allowedRoles.includes(role)) return true
 
             router.navigateByUrl('/unauth')
             return false

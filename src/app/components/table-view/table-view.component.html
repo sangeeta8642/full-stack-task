@@ -1,48 +1,71 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container
+    *ngFor="let column of columns"
+    [matColumnDef]="column.columnDef"
+  >
+    <th mat-header-cell *matHeaderCellDef>{{ column.header }}</th>
+    <td mat-cell *matCellDef="let element">
+      <span
+        *ngIf="context === 'Board'"
+        class="cursor-pointer"
+        (click)="goToSprintDashboard(element?.boardId)"
+      >
+        {{ column.cell(element) }}
+      </span>
+      <span
+        *ngIf="context === 'Sprint'"
+        class="cursor-pointer"
+        (click)="navToSprintView(element?.sprintId)"
+      >
+        {{ column.cell(element) }}
+      </span>
+      <span
+        *ngIf="context === 'Subtask'"
+        class="cursor-pointer"
+        (click)="navToTaskView(element?.taskId)"
+      >
+        {{ column.cell(element) }}
+      </span>
+      <span
+        *ngIf="
+          context !== 'Board' && context !== 'Sprint' && context !== 'Subtask'
+        "
+      >
+        {{ column.cell(element) }}
+      </span>
+    </td>
+  </ng-container>
 
-    <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
-        <th mat-header-cell *matHeaderCellDef> {{ column.header }} </th>
-        <td mat-cell *matCellDef="let element">
-            <span *ngIf="context==='Board'" class="cursor-pointer" (click)="goToSprintDashboard(element?.boardId)">
-                {{ column.cell(element) }}
-            </span>
-            <span *ngIf="context==='Sprint'" class="cursor-pointer" (click)="navToSprintView(element?.sprintId)">
-                {{ column.cell(element) }}
-            </span>
-            <span *ngIf="context!=='Board'&&context!=='Sprint'">
-                {{ column.cell(element) }}
-            </span>
-        </td>
-    </ng-container>
+  <!-- Action Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Actions menu"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
 
-    <!-- Action Column -->
-    <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions menu">
-                <mat-icon>more_vert</mat-icon>
-            </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>visibility</mat-icon>
+          <span>View</span>
+        </button>
+        <!-- <button mat-menu-item (click)="editElement(element)"> -->
+        <button mat-menu-item (click)="openDialog(element)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item (click)="deleteElement(element)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
 
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                    <mat-icon>visibility</mat-icon>
-                    <span>View</span>
-                </button>
-                <!-- <button mat-menu-item (click)="editElement(element)"> -->
-                <button mat-menu-item (click)="openDialog(element)">
-                    <mat-icon>edit</mat-icon>
-                    <span>Edit</span>
-                </button>
-                <button mat-menu-item (click)="deleteElement(element)">
-                    <mat-icon>delete</mat-icon>
-                    <span>Delete</span>
-                </button>
-            </mat-menu>
-        </td>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

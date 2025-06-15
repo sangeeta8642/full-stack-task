@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { userActions } from 'src/app';
 import { AuthService } from 'src/app/auth/auth.service';
-import * as userActions from '../../dashboards/users/store/users.actions'
 import { loginFirstTimeModel } from 'src/app/utils/types';
 
 @Component({

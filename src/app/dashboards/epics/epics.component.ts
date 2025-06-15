@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { epicActions } from 'src/app';
 import { getAllEpics } from 'src/app/dashboards/epics/store/epics.selectors';
 import { ColumnConfig, EpicsInterface } from 'src/app/utils/types';
 
@@ -14,17 +15,17 @@ export class EpicsComponent {
     {
       columnDef: "EpicId",
       header: "Epic ID",
-      cell: (element) => `${element.EpicId}`
+      cell: (element) => `${element.epicId}`
     },
     {
       columnDef: "EpicName",
       header: "Epic Name",
-      cell: (element) => `${element.EpicName}`
+      cell: (element) => `${element.epicName}`
     },
     {
       columnDef: "Description",
       header: "Description",
-      cell: (element) => `${element.Description}`
+      cell: (element) => `${element.description}`
     }
   ];
 
@@ -33,4 +34,8 @@ export class EpicsComponent {
       this.epics = res.epics
     ))
   }
+
+   ngOnInit(): void {
+      this.store.dispatch(epicActions.loadEpics())
+    }
 }

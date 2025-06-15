@@ -40,12 +40,18 @@ import { UnauthComponent } from './pages/unauth/unauth.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { SprintEffect } from './dashboards/sprints/store/sprints.effects';
+import { RoleEffect } from './ngrx/roles/role.effects';
+import { EpicEffect } from './dashboards/epics/store/epics.effects';
+import { StoryEffect } from './dashboards/stories/store/stories.effects';
+import { SubtaskModule } from './dashboards/subtask/subtask.module';
+import { SubtaskEffects } from './dashboards/subtask/store/subtask.effects';
 
 const customModuls = [
   SprintsModule,
   BoardModule,
   EpicsModule,
   UsersModule,
+  SubtaskModule,
   StoriesModule,
 ];
 @NgModule({
@@ -71,11 +77,22 @@ const customModuls = [
 
     StoreModule.forRoot(appReducer),
 
-    EffectsModule.forRoot([BoardEffect, UserEffect, SprintEffect]),
+    EffectsModule.forRoot([
+      BoardEffect,
+      UserEffect,
+      SprintEffect,
+      RoleEffect,
+      EpicEffect,
+      StoryEffect,
+      SubtaskEffects,
+    ]),
 
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
-  providers: [provideAnimations(), { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    provideAnimations(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

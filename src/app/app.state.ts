@@ -13,6 +13,8 @@ import { BoardState } from './dashboards/boards/store/boards.state';
 import { boardReducer } from './dashboards/boards/store/boards.reducer';
 import { ReleaseState } from './dashboards/releases/store/releases.state';
 import { releaseReducer } from './dashboards/releases/store/releases.reducer';
+import { SubtaskState } from './dashboards/subtask/store/subtask.state';
+import { subtaskReducer } from './dashboards/subtask/store/subtask.reducer';
 
 export interface AppState {
   boards: BoardState;
@@ -22,6 +24,7 @@ export interface AppState {
   stories: StoryState;
   users: UserState;
   roles: RoleState;
+  subtask: SubtaskState;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -32,4 +35,5 @@ export const appReducer: ActionReducerMap<AppState> = {
   stories: storyReducer,
   users: userReducer,
   roles: roleReducer,
+  subtask:subtaskReducer
 };
