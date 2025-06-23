@@ -18,7 +18,7 @@ export type Context =
   | 'Release'
   | 'Subtask';
 
-export const actionColumnVisibility: Record<Role, Context[]> = {
+export const actionColumnVisibility: Record<string, Context[]> = {
   manager: ['Board', 'Sprint', 'Story', 'Epic', 'User', 'Release'],
   lead: ['Board', 'Sprint', 'Story', 'Epic', 'Release'],
   developer: [],
@@ -62,16 +62,16 @@ export const entityFormControls: Record<string, () => any> = {
     RoleId: [''],
   }),
   Release: () => ({
-    ReleaseName: ['', Validators.required],
-    SprintId: ['', Validators.required],
+    releaseName: ['', Validators.required],
+    sprintId: ['', Validators.required],
   }),
 };
 
 export const entityDispatchers: Record<string, (data: any) => any> = {
   Board: (data) => boardActions.addBoard(data),
-  Release: (data) => releaseActions.addReleaseSuccess({ release: data }),
+  Release: (data) => releaseActions.addRelease(data),
   Epic: (data) => epicActions.addEpic(data),
-  Sprint: (data) => sprintActions.addSprint(data),
+  Sprint: (data) => sprintActions.addSprint(data),  
   Story: (data) => storyActions.addStory(data),
   User: (data) => userActions.addStagedUser(data),
 };
@@ -81,9 +81,9 @@ export const entityDispatchersForUpdate: Record<
   (id: number, data: any) => any
 > = {
   Board: (id, data) => boardActions.updateBoard({ id, board: data }),
-  // Release: (data) => releaseAction.addReleaseSuccess({ release: data }),
-  // Epic: (data) => epicAction.addEpicSuccess({ epic: data }),
+  Release: (id, data) => releaseActions.updateRelease({ id, release: data }),
+  Epic: (id, data) => epicActions.updateEpic({ id, epic: data }),
   Sprint: (id, data) => sprintActions.updateSprint({ id, sprint: data }),
-  // Story: (data) => storyActions.addStorySuccess({ story: data }),
-  // User: (data) => usersActions.addStagedUser(data),
+  Story: (id, data) => storyActions.updateStory({ id, story: data }),
+  User: (id, data) => userActions.updateUser({ id, user: data }),
 };

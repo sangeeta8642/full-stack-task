@@ -1,73 +1,41 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #sidenav
-    mode="side"
-    class="sidebar"
-    [opened]="isAuth ? true : false"
-  >
+  <mat-sidenav #sidenav mode="side" class="sidebar" [opened]="isAuth ? true : false">
     <!-- <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon>close</mat-icon>
         </button> -->
     <ng-container *ngIf="isAuth">
-      <div>
+      <!-- <div>
         <input
           type="text"
           class="search-input"
           placeholder="Search a board, sprint, story..."
         />
-      </div>
+      </div> -->
       <mat-list role="list">
-        <mat-list-item
-          role="listitem"
-          [routerLinkActive]="'activeLink'"
-          [routerLinkActiveOptions]="{ exact: true }"
-          routerLink="/"
-          >Home</mat-list-item
-        >
-        <mat-list-item
-          role="listitem"
-          [routerLinkActive]="'activeLink'"
-          routerLink="boards/dashboard"
-          >Boards</mat-list-item
-        >
-        <mat-list-item
-          role="listitem"
-          [routerLinkActive]="'activeLink'"
-          routerLink="sprints/dashboard"
-          >Sprints</mat-list-item
-        >
+        <mat-list-item role="listitem" [routerLinkActive]="'activeLink'" [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/">Home</mat-list-item>
+        <mat-list-item role="listitem" [routerLinkActive]="'activeLink'"
+          routerLink="boards/dashboard">Boards</mat-list-item>
+        <mat-list-item role="listitem" [routerLinkActive]="'activeLink'"
+          routerLink="sprints/dashboard">Sprints</mat-list-item>
         <!-- <mat-list-item
           role="listitem"
           [routerLinkActive]="'activeLink'"
           routerLink="stories/dashboard"
           >Stories</mat-list-item
         > -->
-        <mat-list-item
-          role="listitem"
-          [routerLinkActive]="'activeLink'"
-          routerLink="epic/dashboard"
-          >Epics</mat-list-item
-        >
-        <mat-list-item
-          role="listitem"
-          [routerLinkActive]="'activeLink'"
-          routerLink="releases/dashboard"
-          >Releases</mat-list-item
-        >
-        <mat-list-item
-          role="listitem"
-          [routerLinkActive]="'activeLink'"
-          routerLink="user/dashboard"
-          >Users</mat-list-item
-        >
+        <mat-list-item role="listitem" [routerLinkActive]="'activeLink'"
+          routerLink="epic/dashboard">Epics</mat-list-item>
+        <mat-list-item role="listitem" [routerLinkActive]="'activeLink'"
+          routerLink="releases/dashboard">Releases</mat-list-item>
+        <!-- <mat-list-item *ngIf="user?.role?.title==='manager' ||user?.role?.title==='lead' " role="listitem" -->
+        <mat-list-item *ngIf="role==='manager' ||role==='lead' " role="listitem" [routerLinkActive]="'activeLink'"
+          routerLink="user/dashboard">Users</mat-list-item>
       </mat-list>
     </ng-container>
   </mat-sidenav>
 
-  <mat-sidenav-content
-    class="content"
-    [ngClass]="sidenav.opened ? 'w-80p' : 'w-100dvh'"
-  >
+  <mat-sidenav-content class="content" [ngClass]="sidenav.opened ? 'w-80p' : 'w-100dvh'">
     <mat-toolbar>
       <div class="logo">
         <button mat-icon-button (click)="sidenav.toggle()" *ngIf="isAuth">
@@ -77,26 +45,14 @@
       </div>
       <!-- <div class="example-button-row"> -->
       <div class="div2">
-        <button
-          mat-flat-button
-          color="primary"
-          (click)="openDialog()"
-          *ngIf="
-            user?.role?.title?.toLowerCase() === 'manager' ||
-            user?.role?.title?.toLowerCase() === 'lead' ||
-            user?.role?.title === 'Team lead' ||
-            user?.roleId?.toLowerCase() === 'manager' ||
-            user?.roleId?.toLowerCase() === 'lead'
-          "
-        >
+        <button mat-flat-button color="primary" (click)="openDialog()" *ngIf="
+            role.toLowerCase() === 'manager' ||
+            role.toLowerCase() === 'lead' ||
+            role.toLowerCase() === 'Team lead'
+          ">
           Create +
         </button>
-        <button
-          mat-flat-button
-          color="primary"
-          (click)="Logout()"
-          *ngIf="isAuth"
-        >
+        <button mat-flat-button color="primary" (click)="Logout()" *ngIf="isAuth">
           Log Out
         </button>
         <button mat-flat-button color="basic" class="user-label" *ngIf="isAuth">

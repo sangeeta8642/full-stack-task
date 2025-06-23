@@ -24,7 +24,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./sprint-view.component.scss'],
 })
 export class SprintViewComponent {
-  columns = ['TODO', 'IN_PROGRESS', 'COMPLETED'];
+  columns = ['TODO', 'IN_PROGRESS', 'QA', 'DONE'];
   currentSprint: EpicsInterface[] = [];
   connectedDropLists: string[] = [];
 
@@ -34,7 +34,7 @@ export class SprintViewComponent {
     private route: ActivatedRoute,
     private router: Router,
     private sprintService: SprintsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -42,6 +42,8 @@ export class SprintViewComponent {
       if (id) {
         this.sprintService.getCurrentSprint(+id).subscribe((res) => {
           this.currentSprint = res.data;
+          console.log("current sprint", res.data);
+
 
           // Build all droplist IDs after data is loaded
           this.connectedDropLists = this.currentSprint.flatMap((epic) =>
@@ -116,6 +118,8 @@ export class SprintViewComponent {
 
   openDialog(element: StoriesInterface) {
     // let id: number | undefined;
+    console.log("selected story", element);
+
 
     this.dialog.open;
     this.dialog.open(FormViewComponent, {

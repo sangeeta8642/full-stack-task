@@ -21,7 +21,7 @@ import { SubtaskService } from 'src/app/dashboards/subtask/subtask.service';
 })
 export class StoryViewComponent {
   storyId: number | null = null;
-  story!: StoriesInterface;
+  story: StoriesInterface | null = null;
   stories: StoriesInterface[] = [];
   subtasks: SubtaskInterface[] = [];
 

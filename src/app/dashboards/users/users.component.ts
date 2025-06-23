@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { AuthService } from 'src/app/auth/auth.service';
 import { getAllUsers } from 'src/app/dashboards/users/store/users.selectors';
 import { ColumnConfig, UserInterface } from 'src/app/utils/types';
 
@@ -11,8 +12,9 @@ import { ColumnConfig, UserInterface } from 'src/app/utils/types';
 export class UsersComponent {
   users: UserInterface[] = [];
 
-  constructor(private store: Store) {
-    this.store.select(getAllUsers).subscribe((res) => (this.users = res.users));
+  constructor(private store: Store, private authService: AuthService) {
+    // this.store.select(getAllUsers).subscribe((res) => (this.users = res.users));
+    this.authService.getAllUsers().subscribe(res => this.users = res as UserInterface[])
   }
   // users: UserInterface[] = [
   //   {
@@ -67,20 +69,20 @@ export class UsersComponent {
   // ];
 
   userColumnConfigs: ColumnConfig[] = [
-    {
-      columnDef: 'UserId',
-      header: 'User ID',
-      cell: (element: UserInterface) => `${element.UserId ?? '-'}`,
-    },
+    // {
+    //   columnDef: 'UserId',
+    //   header: 'User ID',
+    //   cell: (element: UserInterface) => `${element.userId ?? '-'}`,
+    // },
     {
       columnDef: 'UserName',
       header: 'Name',
-      cell: (element: UserInterface) => `${element.UserName}`,
+      cell: (element: UserInterface) => `${element.userName}`,
     },
     {
       columnDef: 'Email',
       header: 'Email',
-      cell: (element: UserInterface) => `${element.Email}`,
+      cell: (element: UserInterface) => `${element.email}`,
     },
     // {
     //   columnDef: 'Password',
@@ -90,7 +92,7 @@ export class UsersComponent {
     {
       columnDef: 'RoleId',
       header: 'Role ID',
-      cell: (element: UserInterface) => `${element.RoleId}`,
+      cell: (element: UserInterface) => `${element.role?.title}`,
     },
   ];
 }

@@ -143,7 +143,7 @@
             <!-- <input matInput formControlName="UserId" type="number" /> -->
             <mat-select formControlName="userId">
               <mat-option *ngFor="let user of users" [value]="user.UserId">{{
-                user.UserName
+                user.userName
               }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -182,7 +182,7 @@
             <textarea matInput formControlName="description"></textarea>
           </mat-form-field>
         </div>
-        <div *ngSwitchCase="'Subtask'">
+        <!-- <div *ngSwitchCase="'Subtask'">
           <mat-form-field appearance="fill">
             <mat-label>Epic Name</mat-label>
             <input matInput formControlName="taskName" required />
@@ -193,14 +193,13 @@
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Story</mat-label>
-            <!-- <input matInput formControlName="EpicId" type="number" /> -->
             <mat-select formControlName="storyId">
               <mat-option *ngFor="let story of stories" [value]="story.storyId">{{
                 story.storyName
               }}</mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <!-- User -->
         <div *ngSwitchCase="'User'">
@@ -234,13 +233,13 @@
         <div *ngSwitchCase="'Release'">
           <mat-form-field appearance="fill">
             <mat-label>Release Name</mat-label>
-            <input matInput formControlName="ReleaseName" required />
+            <input matInput formControlName="releaseName" required />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Sprint ID</mat-label>
             <!-- <input matInput formControlName="SprintId" type="number" /> -->
-            <mat-select formControlName="SprintId">
+            <mat-select formControlName="sprintId">
               <mat-option *ngFor="let s of sprints" [value]="s.sprintId">{{
                 s.sprintName
               }}</mat-option>

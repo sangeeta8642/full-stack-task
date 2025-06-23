@@ -29,6 +29,7 @@ import { forkJoin, Observable, firstValueFrom, combineLatest, filter } from 'rxj
 import { BoardState } from 'src/app/dashboards/boards/store/boards.state';
 import { boardActions, epicActions, releaseActions, sprintActions, storyActions, userActions } from 'src/app';
 import { loadRoles } from 'src/app/ngrx/roles/role.actions';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-form-view',
@@ -36,7 +37,7 @@ import { loadRoles } from 'src/app/ngrx/roles/role.actions';
   styleUrls: ['./form-view.component.scss'],
 })
 export class FormViewComponent implements OnInit {
-  entityTypes: Context[] = ['Board', 'Sprint', 'Story', 'Epic', 'User', 'Release','Subtask']
+  entityTypes: Context[] = ['Board', 'Sprint', 'Story', 'Epic', 'User', 'Release']
   selectedEntity = '';
   typeForm: FormGroup;
   entityForm: FormGroup;
@@ -64,6 +65,7 @@ export class FormViewComponent implements OnInit {
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<FormViewComponent>,
     private activeRoute: ActivatedRoute,
+    private userServices: AuthService,
 
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
@@ -85,70 +87,12 @@ export class FormViewComponent implements OnInit {
     this.subscribeToEntity(getAllStories, 'stories');
     this.subscribeToEntity(getAllUsers, 'users');
     this.subscribeToEntity(getAllRoles, 'roles');
+
+    this.userServices.getAllUsers().subscribe(res => {
+      console.log("User Data", res);
+      this.users = res as UserInterface[]
+    })
   }
-
-  // ngOnInit() {
-  //   let id = Number(this.activeRoute.snapshot.paramMap.get('id'))
-  //   let dashboard = this.activeRoute.snapshot.paramMap.get('dashboard')
-
-  //   if (id && dashboard) {
-  //     this.pageType = 'update'
-  //     this.selectedEntity = dashboard.charAt(0).toUpperCase() + dashboard.slice(1).toLowerCase()
-  //     // this.selectedEntity = 'Story'
-  //     this.buildEntityForm()
-
-  //     if (dashboard === "story") {
-  //       let story = this.stories.find(s => s.StoryId === id)
-  //       console.log("dashboard", dashboard, "id", id, "story", story, "stories", this.stories);
-
-  //       if (story) {
-  //         this.entityForm.patchValue(story)
-  //       }
-  //     }
-  //     else if (dashboard === 'board') {
-  //       let board = this.boards.find(s => s.BoardId === id)
-  //       console.log("dashboard", dashboard, "id", id, "board", board, "boards", this.boards);
-
-  //       if (board) {
-  //         this.entityForm.patchValue(board)
-  //       }
-  //     }
-  //     else if (dashboard === 'sprint') {
-  //       let sprint = this.sprints.find(s => s.SprintId === id)
-  //       console.log("dashboard", dashboard, "id", id, "sprint", sprint, "sprints", this.sprints);
-
-  //       if (sprint) {
-  //         this.entityForm.patchValue(sprint)
-  //       }
-  //     }
-  //     else if (dashboard === 'user') {
-  //       let user = this.users.find(s => s.UserId === id)
-  //       console.log("dashboard", dashboard, "id", id, "user", user, "users", this.users);
-
-  //       if (user) {
-  //         this.entityForm.patchValue(user)
-  //       }
-  //     }
-  //     else if (dashboard === 'release') {
-  //       let release = this.release.find(s => s.ReleaseId === id)
-  //       console.log("dashboard", dashboard, "id", id, "release", release, "releases", this.release);
-
-  //       if (release) {
-  //         this.entityForm.patchValue(release)
-  //       }
-  //     }
-  //     else if (dashboard === 'epic') {
-  //       let epic = this.epics.find(s => s.EpicId === id)
-  //       console.log("dashboard", dashboard, "id", id, "epic", epic, "epics", this.epics);
-
-  //       if (epic) {
-  //         this.entityForm.patchValue(epic)
-  //       }
-  //     }
-  //   } else {
-  //     this.pageType = 'create'
-  //   }
-  // }
 
   ngOnInit() {
 
@@ -224,6 +168,10 @@ export class FormViewComponent implements OnInit {
           const action = entityDispatchers[entityType](formData);
           this.store.dispatch(action);
         }
+        else {
+          const action = entityDispatchers[entityType](formData);
+          this.store.dispatch(action);
+        }
       } else if (this.pageType === 'update') {
         const action = entityDispatchersForUpdate[entityType](this.data?.id, formData);
         this.store.dispatch(action);
@@ -240,17 +188,6 @@ export class FormViewComponent implements OnInit {
     });
   }
 
-
-  // entityIdGenerators: Record<string, () => number> = {
-  //   Board: () => this.boards.length + 1,
-  //   Release: () => this.release.length + 1,
-  //   Epic: () => this.epics.length + 1,
-  //   Sprint: () => this.sprints.length + 1,
-  //   Story: () => this.stories.length + 1,
-  //   User: () => this.users.length + 1,
-  // };
-
-
   subscribeToEntity<T>(selector: any, assignTo: keyof FormViewComponent) {
     this.store.select(selector).subscribe((data: any) => {
       console.log("Result :", data, Object.keys(data)[0]);
@@ -265,92 +202,6 @@ export class FormViewComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
-  // getDataFromApis(): void {
-
-  //   // this.callAllDispatchs()
-  //   const boards = firstValueFrom(this.store.select(getAllBoards));
-  //   const sprints = firstValueFrom(this.store.select(getAllSprints));
-  //   const epics = firstValueFrom(this.store.select(getAllEpics));
-  //   const releases = firstValueFrom(this.store.select(getAllReleases));
-  //   const stories = firstValueFrom(this.store.select(getAllStories));
-  //   const roles = firstValueFrom(this.store.select(getAllRoles));
-  //   const users = firstValueFrom(this.store.select(getAllUsers));
-
-  //   forkJoin([boards, sprints, epics, releases, stories, roles, users]).subscribe(
-  //     (res) => {
-
-  //       console.log("ALL respinses", res);
-
-  //     },
-  //     error => {
-  //       console.error('Error fetching data', error);
-  //     }
-  //   )
-  // }
-
-
-// getDataFromApis(): void {
-//   console.log("getDataFromApis");
-  
-//   combineLatest([
-//     this.store.select(getAllBoards).pipe(filter(data => data.boards.length > 0)),
-//     this.store.select(getAllSprints).pipe(filter(data => data.sprints.length > 0)),
-//     this.store.select(getAllEpics).pipe(filter(data => data.epics.length > 0)),
-//     this.store.select(getAllReleases).pipe(filter(data => data.releases.length > 0)),
-//     this.store.select(getAllStories).pipe(filter(data => data.stories.length > 0)),
-//     this.store.select(getAllRoles).pipe(filter(data => data.roles.length > 0)),
-//     this.store.select(getAllUsers).pipe(filter(data => data.users.length > 0)),
-//   ]).subscribe(
-//     ([boards, sprints, epics, releases, stories, roles, users]) => {
-//       console.log('ALL responses', { boards, sprints, epics, releases, stories, roles, users });
-
-//       // assign them here
-//       this.boards = boards.boards;
-//       this.sprints = sprints.sprints;
-//       this.epics = epics.epics;
-//       this.release = releases.releases;
-//       this.stories = stories.stories;
-//       this.roles = roles.roles;
-//       this.users = users.users;
-//     },
-//     error => {
-//       console.error('Error fetching data', error);
-//     }
-//   );
-// }
-
-// getDataFromApis(): void {
-//   console.log("getDataFromApis");
-
-//   const combined$ = combineLatest([
-//     this.store.select(getAllBoards).pipe(filter(data => data.boards.length > 0)),
-//     this.store.select(getAllSprints).pipe(filter(data => data.sprints.length > 0)),
-//     this.store.select(getAllEpics).pipe(filter(data => data.epics.length > 0)),
-//     this.store.select(getAllReleases).pipe(filter(data => data.releases.length > 0)),
-//     this.store.select(getAllStories).pipe(filter(data => data.stories.length > 0)),
-//     this.store.select(getAllRoles).pipe(filter(data => data.roles.length > 0)),
-//     this.store.select(getAllUsers).pipe(filter(data => data.users.length > 0)),
-//   ]);
-
-//   firstValueFrom(combined$)
-//     .then(([boards, sprints, epics, releases, stories, roles, users]) => {
-//       console.log('ALL responses', { boards, sprints, epics, releases, stories, roles, users });
-
-//       this.boards = boards.boards;
-//       this.sprints = sprints.sprints;
-//       this.epics = epics.epics;
-//       this.release = releases.releases;
-//       this.stories = stories.stories;
-//       this.roles = roles.roles;
-//       this.users = users.users;
-//     })
-//     .catch(error => {
-//       console.error('Error fetching data', error);
-//     });
-// }
-
-
 
   callAllDispatchs() {
     this.store.dispatch(boardActions.loadBoards())

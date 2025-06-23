@@ -52,7 +52,8 @@ export const loginFirstTimeFailed = createAction(
   props<{ error: any }>()
 );
 
-export const updateUser = createAction('[users] Update User');
+export const updateUser = createAction('[users] Update User',
+  props<{ id: number; user: UserInterface }>());
 export const updateUserSuccess = createAction(
   '[users] Update User Success',
   props<{ id: number; user: UserInterface }>()

@@ -20,6 +20,10 @@ export class AuthService {
     return this.http.post<{ message: string, data: UserInterface, sucess: boolean }>(`${BACKEND_URL}/users`, user)
   }
 
+  getAllUsers() {
+    return this.http.get(`${BACKEND_URL}/users`)
+  }
+
 
   checkEmail(email: string): Observable<{ status?: string, error?: string }> {
     return this.http.post<{ status: string, error?: string }>(`${BACKEND_URL}/auth/check-email`, { email })
@@ -63,4 +67,13 @@ export class AuthService {
       .pipe(map(res => res.user !== null))
   }
 
+  getRole() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payloadBase64 = token.split('.')[1];
+      const decodedPayload = JSON.parse(atob(payloadBase64));
+      const userRole = decodedPayload.role;
+      return userRole;
+    }
+  }
 }

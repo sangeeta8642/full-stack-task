@@ -28,7 +28,8 @@ export class TableViewComponent {
   @Input() columns: ColumnConfig[] = [];
   @Input() dataSource: any[] = [];
   @Input() context: Context = 'Board';
-  userRole: 'manager' | 'lead' | 'developer' = 'developer';
+  userRole: string = '';
+  role: string = ''
 
   // get displayedColumns(): string[] {
   //   return [...this.columns.map(c => c.columnDef), 'action'];
@@ -44,16 +45,21 @@ export class TableViewComponent {
     private http: HttpClient,
     private authService: AuthService
   ) {
+
+
+
     this.store.select(getAllUsers).subscribe((res) => {
-      this.userRole = res.user?.role?.title as 'manager' | 'lead' | 'developer';
+      this.userRole = res.user?.role?.title || 'developer'
       // console.log("User logged in", this.user);
     });
+
+    this.role = this.authService.getRole()
   }
 
   get displayedColumns(): string[] {
     const baseColumns = this.columns.map((c) => c.columnDef);
-    const role = this.userRole;
-    const canShow = actionColumnVisibility[role]?.includes(this.context);
+    // const role = this.userRole;
+    const canShow = actionColumnVisibility[this.role]?.includes(this.context);
 
     return canShow ? [...baseColumns, 'action'] : baseColumns;
   }
@@ -96,10 +102,10 @@ export class TableViewComponent {
         id = (element as EpicsInterface).epicId;
         break;
       case 'Release':
-        id = (element as ReleaseInterface).ReleaseId;
+        id = (element as ReleaseInterface).releaseId;
         break;
       case 'User':
-        id = (element as UserInterface).UserId;
+        id = (element as UserInterface).userId;
         break;
       default:
         console.error('Unknown context');

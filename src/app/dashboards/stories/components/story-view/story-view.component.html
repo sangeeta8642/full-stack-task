@@ -1,7 +1,7 @@
 <section class="main-container">
-  <h3 class="story-title">{{ story.storyName || "" }}</h3>
-  <p class="story-des">{{ story.description || "" }}</p>
-  <p class="story-user">Active User: {{ story.users?.userName || "" }}</p>
+  <h3 class="story-title">{{ story?.storyName || "" }}</h3>
+  <p class="story-des">{{ story?.description || "" }}</p>
+  <p class="story-user">Active User: {{ story?.users?.userName || "" }}</p>
 
   <button mat-flat-button color="primary" (click)="openTaskDialog()">
     + Create Subtask

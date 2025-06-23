@@ -39,9 +39,9 @@ export interface StoriesInterface {
 }
 
 export interface ReleaseInterface {
-  ReleaseId: number;
-  ReleaseName: string;
-  SprintId: number;
+  releaseId: number;
+  releaseName: string;
+  sprintId: number;
 }
 
 export interface SprintsInterface {
@@ -55,6 +55,8 @@ export interface SprintsInterface {
 }
 
 export interface UserInterface {
+  userId: number;
+  email: any;
   UserId?: number;
   UserName: string;
   Email: string;

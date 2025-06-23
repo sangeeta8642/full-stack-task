@@ -14,10 +14,10 @@ export const releaseReducer = createReducer(
     })),
     on(releaseActions.updateReleaseSuccess, (state, action) => ({
         ...state,
-        releases: state.releases.map(b => b.ReleaseId === action.id ? action.release : b)
+        releases: state.releases.map(b => b.releaseId === action.id ? action.release : b)
     })),
     on(releaseActions.deleteReleaseSuccess, (state, action) => ({
         ...state,
-        releases: state.releases.filter(b => b.ReleaseId != action.id)
+        releases: state.releases.filter(b => b.releaseId != action.id)
     }))
 )

@@ -17,16 +17,20 @@ export class SidebarComponent {
   showFiller: boolean = false
   user: UserInterface | null = null
   isAuth: boolean = false
+  role: string = ''
 
   /**
    *
    */
-  constructor(private router: Router, private store: Store, private authService: AuthService,private dialog: MatDialog) {
+  constructor(private router: Router, private store: Store, private authService: AuthService, private dialog: MatDialog) {
     this.store.select(getAllUsers).subscribe(res => {
       this.user = res.user
       // console.log("User logged in", this.user);
 
     })
+
+    this.role = this.authService.getRole()
+
 
     this.authService.isAuthenticated().subscribe(res => {
       this.isAuth = res
@@ -48,11 +52,11 @@ export class SidebarComponent {
     this.router.navigateByUrl('/login')
   }
 
-   openDialog() {
-      this.dialog.open(FormViewComponent, {
-        width: '700px'
-      });
-    }
+  openDialog() {
+    this.dialog.open(FormViewComponent, {
+      width: '700px'
+    });
+  }
   // showFiller() {
 
   // }
